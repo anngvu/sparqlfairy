@@ -1,0 +1,37 @@
+[
+  {
+    "instruction": "How are data features broken down by their different cell/tissue types and their contexts?",
+    "input": "",
+    "output": "select distinct ?club_l ?context_l (count(*) as ?count) where { ?f a :nPOD_Feature . ?f :cellTissue ?club .  ?f :cellTissueContext ?context . ?club rdfs:label ?club_l . ?context rdfs:label ?context_l } group by ?club_l ?context_l"
+  },
+  {
+    "instruction": "What data exists for case 6063?",
+    "input": "",
+    "output": "select ?feat ?label ?desc ?celltissue where { ?feat :hasCase cid:6063 . ?feat rdfs:label ?label . ?feat dct:description ?desc . ?feat :cellTissue ?cl . ?cl rdfs:label ?celltissue }"
+  },
+  {
+    "instruction": "What are data have some sort of concentration unit?",
+    "input": "",
+    "output": "select ?feat_label ?unit ?unit_label where { ?unit rdfs:subClassOf obo:UO_0000051 . ?unit rdfs:label ?unit_label . ?feat :unit ?unit . ?feat rdfs:label ?feat_label } "
+  },
+  {
+    "instruction": "Are there protein data related to the inflammatory response?",
+    "input": "",
+    "output": "SELECT ?feature ?desc ?protein WHERE { ?feature dct:description ?desc . ?feature :UP ?protein  SERVICE <https://sparql.uniprot.org/sparql> { SELECT ?protein WHERE { ?protein a up:Protein . ?protein up:reviewed true . ?protein up:classifiedWith ?goTerm . ?goTerm rdfs:label \"inflammatory response\" } } }"
+  },
+  {
+    "instruction": "Who has done work on the viral pathogenesis of diabetes?",
+    "input": "",
+    "output": "select ?people where { ?dataset a :nPOD_Dataset . ?dataset dcat:theme :Viral . ?dataset :namedAuthor ?people } "
+  },
+  {
+    "instruction": "I need to find donor cases matching this criteria to build my cohort: African American, male, under than 25.",
+    "input": "",
+    "output": "select ?case where { ?case a :T1D_Donor, :African_American, :Male  . ?case :donorAge ?age . filter(?age < 25) }"
+  },
+  {
+    "instruction": "Is monogenic diabetes a Type 1 diabetes subtype?",
+    "input": "",
+    "output": "ASK { :Monogenic_Diabetes_Donor a :T1D_Donor }"
+  }
+]
