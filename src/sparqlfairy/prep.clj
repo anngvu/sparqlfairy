@@ -2,7 +2,7 @@
   (:require [clojure.java.io :as io]
             [clojure.string :as str]
             [clojure.set :as set]
-            [clojure.data.csv :as csv]))
+            [clj-http.client :as client]))
 
 
 (def path "data/prompted/gpt")
@@ -22,7 +22,9 @@
   "Extract question from response; even ChatGPT-4 can be a little inconsistent and sometimes includes #'s"
   [string] (re-seq #"(?<=Question.*: ?\n?).+" string))
 
-(defn seq-query [string] (re-seq #"(?<=Query.*:.*\n?.*)`\n?.*" string))
+(defn seq-query [string]
+  (->>(re-seq #"(?<=Query.*:.*\n?.*)`[^`]*" string)
+      (map #(str/replace % "`" ""))))
 
 (defn parse-msg
   "Parse ChatGPT completion response to get question-query data"
