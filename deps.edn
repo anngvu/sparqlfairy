@@ -1,8 +1,9 @@
 {:paths ["src"]
  :deps {org.clojure/clojure {:mvn/version "1.11.1"}
-        org.clojure/data.json {:mvn/version "2.4.0"} 
+        org.clojure/data.json {:mvn/version "2.4.0"}
+        org.clojure/data.csv {:mvn/version "1.0.1"}
         io.github.lukaszkorecki/tolkien {:git/tag "v0.1.4" :git/sha "65aeb98"}
         net.clojars.wkok/openai-clojure {:mvn/version "0.11.0"}
-        nano-id/nano-id {:mvn/version "1.0.0"}} 
-}
- 
+        nano-id/nano-id {:mvn/version "1.0.0"}
+	    clj-http/clj-http {:mvn/version "3.12.3"}
+        }}
