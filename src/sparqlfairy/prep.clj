@@ -1,6 +1,7 @@
 (ns sparqlfairy.prep
   (:require [clojure.java.io :as io]
             [clojure.string :as str]
+            [clojure.data.json :as json]
             [clojure.set :as set]
             [clj-http.client :as client]))
 
@@ -23,7 +24,8 @@
   [string] (re-seq #"(?<=Question.*: ?\n?).+" string))
 
 (defn seq-query [string]
-  (->>(re-seq #"(?<=Query.*:.*\n?.*)`[^`]*" string)
+  (->>(re-seq #"(?<=\:)\s?\n?\s?`[^`]*" string)
+      ;(re-seq #"(?<=Query.*:.*\n?.*)`[^`]*" string)
       (map #(str/replace % "`" ""))))
 
 (defn parse-msg
@@ -43,7 +45,28 @@
 
 (def dataset-nx (set/join dataset nx))
 
-;; more stats
+;; sum total questions generated
 (reduce + (map :nquest nx))
 
-(filter #(not= (% :nquery) (% :nquest)) dataset)
+;; get endpoint from env
+;; (def endpoint (System/getenv "SPARQL_ENDPOINT"))
+(def endpoint "http://npoddatagraph.westus.azurecontainer.io:7200/repositories/nPOD-dev?")
+
+(defn qc-query
+  "QC query by running it against the graph SPARQL endpoint;
+  add default prefix into query"
+  [query endpoint]
+  (let [prefix "PREFIX : <http://purl.org/net/obi-wan#> "
+        prefixed-query (str prefix query)]
+    (client/get (str endpoint (client/generate-query-string {"query" prefixed-query})) {:as :byte-array})))
+
+(defn row-map [chat]
+  (mapv (fn [quest query] {:question quest :query query}) (chat :question) (chat :query)))
+
+;(filter #(not= (% :nquery) (% :nquest)) dataset)
+
+(def all-rows (mapcat row-map dataset))
+
+
+
+(def filtered (filter #(not (nil? (:query %))) all-rows))
