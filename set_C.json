@@ -1,0 +1,2737 @@
+[
+  {
+    "instruction": " List all group level dataset labels.",
+    "input": "",
+    "output": " SELECT ?label WHERE {  ?dataset rdf:type :Group_Level_Dataset ;           rdfs:label ?label .}"
+  },
+  {
+    "instruction": " What are the comments on individual level datasets?",
+    "input": "",
+    "output": " SELECT ?comment WHERE {  ?dataset rdf:type :Individual_Level_Dataset ;           rdfs:comment ?comment .}"
+  },
+  {
+    "instruction": " Give me the names of all nPOD dataset items.",
+    "input": "",
+    "output": " SELECT ?item WHERE {  ?item rdf:type :nPOD_Dataset_Item .}"
+  },
+  {
+    "instruction": " Which nPOD features exist in the graph?",
+    "input": "",
+    "output": " SELECT ?feature WHERE {  ?feature rdf:type :nPOD_Feature .}"
+  },
+  {
+    "instruction": " Which properties do nPOD quantified features have?",
+    "input": "",
+    "output": " DESCRIBE ?property WHERE {  :nPOD_Quantified_Feature ?property ?_ .}"
+  },
+  {
+    "instruction": " List the names of all non-quantified measurement data items.",
+    "input": "",
+    "output": " SELECT ?item WHERE {  ?item rdf:type :Nonquantified_Measurenent_Datum .}"
+  },
+  {
+    "instruction": " Do any Quantified measurement datum have a comment?",
+    "input": "",
+    "output": " ASK WHERE {  ?item rdf:type :Quantified_Measurement_Datum ;        rdfs:comment ?comment.}"
+  },
+  {
+    "instruction": " Provide the comments for all Dataset-Level-Annotations.",
+    "input": "",
+    "output": " SELECT ?comment WHERE {  ?annotation rdf:type :Dataset_Level_Annotation ;              rdfs:comment ?comment .}"
+  },
+  {
+    "instruction": " Are there any Feature-Level-Annotations in the graph?",
+    "input": "",
+    "output": " ASK WHERE {  ?annotation rdf:type :Feature_Level_Annotation.}"
+  },
+  {
+    "instruction": " Which Method Annotations exist in the graph?",
+    "input": "",
+    "output": " SELECT ?annotation WHERE {  ?annotation rdf:type :Method_Annotation.}"
+  },
+  {
+    "instruction": " How many datasets are connected to nPOD observation and measurement data?",
+    "input": "",
+    "output": " SELECT (COUNT(?dataset) AS ?datasetCount) WHERE {?dataset a :Dataset . ?dataset :hasDataPart/:a :nPOD_Data}"
+  },
+  {
+    "instruction": " Which datasets contain individual-level data?",
+    "input": "",
+    "output": " SELECT ?dataset WHERE {?dataset a :Dataset . ?dataset :hasDataPart/:a :Individual_Level_Dataset}"
+  },
+  {
+    "instruction": " Can you show me all datasets with incomplete case data?",
+    "input": "",
+    "output": " SELECT ?dataset WHERE {?dataset a :Dataset . ?dataset :caseLinkage :incomplete_cases}"
+  },
+  {
+    "instruction": " Which datasets contain only quantified features?",
+    "input": "",
+    "output": " SELECT ?dataset WHERE {?dataset a :Dataset . ?dataset :hasDataPart/:a :nPOD_Quantified_Feature}"
+  },
+  {
+    "instruction": " Show me datasets with data quality annotations.",
+    "input": "",
+    "output": " SELECT ?dataset WHERE {?dataset a :Dataset . ?dataset :hasAnnotation/:a :Data_QC_Annotation}"
+  },
+  {
+    "instruction": " What are the nPOD features used in DatasetX?",
+    "input": "",
+    "output": " SELECT ?feature WHERE { :DatasetX :hasDataPart ?feature . ?feature a :nPOD_Feature}"
+  },
+  {
+    "instruction": " Are there any datasets with exploratory data?",
+    "input": "",
+    "output": " ASK WHERE { ?dataset a :Dataset . ?dataset :dataGrade :exploratory }"
+  },
+  {
+    "instruction": " Which features have an ordinal measurement scale?",
+    "input": "",
+    "output": " SELECT ?feature WHERE {?feature a :nPOD_Feature . ?feature :measurement_scale :ordinal_scale}"
+  },
+  {
+    "instruction": " List all datasets associated with AuthorX.",
+    "input": "",
+    "output": " SELECT ?dataset WHERE { ?dataset a :Dataset . ?dataset :hasAuthor :AuthorX }"
+  },
+  {
+    "instruction": " Which datasets make use of Data Derivation MethodY?",
+    "input": "",
+    "output": " SELECT ?dataset WHERE { ?dataset a :Dataset . ?dataset :usedMethod :MethodY .}"
+  },
+  {
+    "instruction": "What is the class hierarchy of the ontology?",
+    "input": "",
+    "output": " SELECT ?subclass ?superclass WHERE {?subclass rdfs:subClassOf ?superclass}"
+  },
+  {
+    "instruction": " What are the subclasses of :Dataset?",
+    "input": "",
+    "output": " SELECT ?subclass WHERE {?subclass rdfs:subClassOf :Dataset}"
+  },
+  {
+    "instruction": " What are the properties used to link data resources to their associated cases?",
+    "input": "",
+    "output": " SELECT ?property WHERE {?property rdfs:domain :case}"
+  },
+  {
+    "instruction": " What are the measurement scales defined in the ontology?",
+    "input": "",
+    "output": " SELECT ?measurementScale WHERE {?measurementScale rdfs:subClassOf :measurement_scale}"
+  },
+  {
+    "instruction": " What are the annotation classes related to biological processes?",
+    "input": "",
+    "output": " SELECT ?annotationClass WHERE {?annotationClass rdfs:subClassOf :Biological_Process_Annotation}"
+  },
+  {
+    "instruction": " What are the annotation classes that can be used at the dataset level?",
+    "input": "",
+    "output": " SELECT ?annotationClass WHERE {?annotationClass rdfs:subClassOf :Dataset_Level_Annotation}"
+  },
+  {
+    "instruction": " What are the published datasets in the ontology?",
+    "input": "",
+    "output": " SELECT ?dataset WHERE {?dataset :dataGrade :published}"
+  },
+  {
+    "instruction": " Which resources have been marked as obsolete?",
+    "input": "",
+    "output": " SELECT ?resource WHERE {?resource :obsolete true}"
+  },
+  {
+    "instruction": "Which methods are considered to be the same?",
+    "input": "",
+    "output": "SELECT ?method1 ?method2 WHERE {?method1 :sameMethod ?method2}"
+  },
+  {
+    "instruction": " What are the properties that can link data resources to their associated biological processes?",
+    "input": "",
+    "output": " SELECT ?property WHERE {?property rdfs:domain :Biological_Process_Annotation}"
+  },
+  {
+    "instruction": "Who is the author of the nPOD dataset?",
+    "input": "",
+    "output": " SELECT ?author WHERE { ?s <http://purl.org/dc/terms/author> ?author }"
+  },
+  {
+    "instruction": " How many datasets are available in the nPOD knowledge graph?",
+    "input": "",
+    "output": " SELECT (count(distinct ?s) as ?count) WHERE { ?s a <http://purl.org/net/#Dataset> }"
+  },
+  {
+    "instruction": " What methods were used to generate the nPOD data?",
+    "input": "",
+    "output": " SELECT DISTINCT ?method WHERE { ?s <http://purl.org/net/#usedMethod> ?method }"
+  },
+  {
+    "instruction": " What are the names of the datasets in the nPOD knowledge graph?",
+    "input": "",
+    "output": " SELECT ?name WHERE { ?s a <http://purl.org/net/#Dataset>; rdfs:label ?name }"
+  },
+  {
+    "instruction": " What is the quality grade of the nPOD data?",
+    "input": "",
+    "output": " SELECT ?grade WHERE { ?s <http://purl.org/net/#dataGrade> ?grade }"
+  },
+  {
+    "instruction": " How many nPOD datasets have been published?",
+    "input": "",
+    "output": " SELECT (count(distinct ?s) as ?count) WHERE { ?s a <http://purl.org/net/#Dataset>; <http://purl.org/net/#Publication> ?pub }"
+  },
+  {
+    "instruction": " How many data points are there in each nPOD dataset?",
+    "input": "",
+    "output": " SELECT ?dataset (count(?dp) as ?datapoints) WHERE { ?dataset a <http://purl.org/net/#Dataset>; <http://purl.org/net/#dataPoints> ?dp } GROUP BY ?dataset"
+  },
+  {
+    "instruction": " Which nPOD datasets are accessible?",
+    "input": "",
+    "output": " SELECT ?dataset WHERE { ?dataset a <http://purl.org/net/#Dataset>; <http://purl.org/net/#accessible> \"true\"^^xsd:boolean }"
+  },
+  {
+    "instruction": " What datasets are in the nPOD knowledge graph?",
+    "input": "",
+    "output": " SELECT ?dataset WHERE {?dataset a :nPOD_Dataset}"
+  },
+  {
+    "instruction": " How many nPOD datasets are available?",
+    "input": "",
+    "output": " SELECT (COUNT(?dataset) AS ?num_datasets) WHERE {?dataset a :nPOD_Dataset}"
+  },
+  {
+    "instruction": " How many dataset items are there in a specified dataset?",
+    "input": "<NamedDataset>",
+    "output": " SELECT (COUNT(?item) AS ?num_items) WHERE {?item :inDataset <NamedDataset>}"
+  },
+  {
+    "instruction": " What is the title of a specified dataset?",
+    "input": "<NamedDataset>",
+    "output": " SELECT ?title WHERE {<NamedDataset> dct:title ?title}"
+  },
+  {
+    "instruction": " Who is the author of a specified dataset?",
+    "input": "<NamedDataset>",
+    "output": " SELECT ?author WHERE {<NamedDataset> :hasAuthor ?author}"
+  },
+  {
+    "instruction": " Does this dataset contain individual-level data?",
+    "input": "<NamedDataset>",
+    "output": " ASK WHERE {<NamedDataset> a :Individual_Level_Dataset}"
+  },
+  {
+    "instruction": " Which datasets have been peer-reviewed and published?",
+    "input": "",
+    "output": " SELECT ?dataset WHERE {?dataset :dataGrade :published}"
+  },
+  {
+    "instruction": " Who is the first author of a specified dataset?",
+    "input": "<NamedDataset>",
+    "output": " SELECT ?first_author WHERE {<NamedDataset> :hasFirstAuthor ?first_author}"
+  },
+  {
+    "instruction": " What method was used to derive data in this dataset?",
+    "input": "<NamedDataset>",
+    "output": " SELECT ?method WHERE {<NamedDataset> :usedMethod ?method}"
+  },
+  {
+    "instruction": " Is this data accessible, according to FAIR principles?",
+    "input": "<NamedDataset>",
+    "output": " ASK WHERE {<NamedDataset> a :accessible}"
+  },
+  {
+    "instruction": " Does this dataset have statistical data?",
+    "input": "<NamedDataset>",
+    "output": " ASK WHERE {<NamedDataset> a :statistical_data}"
+  },
+  {
+    "instruction": " What are the feature-level annotations associated with this dataset?",
+    "input": "<NamedDataset>",
+    "output": " SELECT ?annotation WHERE { <NamedDataset> :Feature_Level_Annotation ?annotation}"
+  },
+  {
+    "instruction": "What are the different classes in the ontology?",
+    "input": "",
+    "output": "SELECT DISTINCT ?class WHERE {  ?class a owl:Class .}"
+  },
+  {
+    "instruction": " What are the different object properties in the ontology?",
+    "input": "",
+    "output": "SELECT DISTINCT ?property WHERE {  ?property a owl:ObjectProperty .}"
+  },
+  {
+    "instruction": " What are the different datatype properties in the ontology?",
+    "input": "",
+    "output": "SELECT DISTINCT ?property WHERE {  ?property a owl:DatatypeProperty .}"
+  },
+  {
+    "instruction": " What are the different annotation properties in the ontology?",
+    "input": "",
+    "output": "SELECT DISTINCT ?property WHERE {  ?property a owl:AnnotationProperty .}"
+  },
+  {
+    "instruction": " What are the different measurement scales in the ontology?",
+    "input": "",
+    "output": "SELECT DISTINCT ?measurementScale WHERE {  ?measurementScale rdfs:subClassOf :measurement_scale .}"
+  },
+  {
+    "instruction": " What are the different data grades in the ontology?",
+    "input": "",
+    "output": "SELECT DISTINCT ?dataGrade WHERE {  ?dataGrade rdfs:subClassOf :Data_Grade .}"
+  },
+  {
+    "instruction": " What are the different themes in the ontology?",
+    "input": "",
+    "output": "SELECT DISTINCT ?theme WHERE {  ?theme rdfs:subClassOf :Theme .}"
+  },
+  {
+    "instruction": " What are the different data quality/completeness annotation properties in the ontology?",
+    "input": "",
+    "output": "SELECT DISTINCT ?property WHERE {  ?property rdfs:subPropertyOf :Data_QC_Annotation .}"
+  },
+  {
+    "instruction": " What are the different parts of the ontology that deal with data integration methods?",
+    "input": "",
+    "output": "SELECT DISTINCT ?partOfOntology WHERE {  ?partOfOntology rdfs:subClassOf :Data_Integration_Method .}"
+  },
+  {
+    "instruction": " What are the different annotation classes in the ontology?",
+    "input": "",
+    "output": "SELECT DISTINCT ?annotation WHERE {  ?annotation rdfs:subClassOf :Annotation .}"
+  },
+  {
+    "instruction": "Give me the total number of data points in dataset X?",
+    "input": "<dataset X>",
+    "output": " SELECT ?dataPoints WHERE { <dataset X> :dataPoints ?dataPoints . }"
+  },
+  {
+    "instruction": " Who are the authors of dataset Y?",
+    "input": "<dataset Y>",
+    "output": " SELECT ?author WHERE { <dataset Y> :hasAuthor ?author . }"
+  },
+  {
+    "instruction": " What method was used for dataset Z?",
+    "input": "<dataset Z>",
+    "output": " SELECT ?method WHERE { <dataset Z> :usedMethod ?method . }"
+  },
+  {
+    "instruction": " When was the dataset A last updated?",
+    "input": "<dataset A>",
+    "output": " SELECT ?date WHERE { <dataset A> dct:modified ?date . }"
+  },
+  {
+    "instruction": " What is the publication reference for the dataset B?",
+    "input": "<dataset B>",
+    "output": " SELECT ?ref WHERE { <dataset B> :pubSource ?ref . }"
+  },
+  {
+    "instruction": " Who is the first author of dataset C?",
+    "input": "<dataset C>",
+    "output": " SELECT ?firstAuthor WHERE { <dataset C> :hasFirstAuthor ?firstAuthor . }"
+  },
+  {
+    "instruction": " What is the data type for the dataset D?",
+    "input": "<dataset D>",
+    "output": " SELECT ?dataType WHERE { <dataset D> rdf:type ?dataType . }"
+  },
+  {
+    "instruction": " What are the data points for dataset E?",
+    "input": "<dataset E>",
+    "output": " SELECT ?dataPoints WHERE { <dataset E> :dataPoints ?dataPoints . }"
+  },
+  {
+    "instruction": " What is the publication source for dataset F?",
+    "input": "<dataset F>",
+    "output": " SELECT ?pubSrc WHERE { <dataset F> :pubSource ?pubSrc . }"
+  },
+  {
+    "instruction": " What is the quality grade of the dataset G? ",
+    "input": "<dataset G>",
+    "output": " SELECT ?grade WHERE { <dataset G> :dataGrade ?grade . }"
+  },
+  {
+    "instruction": " What method was used to derive dataset H from its original set?",
+    "input": "<dataset H>",
+    "output": " SELECT ?method WHERE { <dataset H> :usedMethod ?method . }"
+  },
+  {
+    "instruction": " What is the author-contributed date for dataset I?",
+    "input": "<dataset I>",
+    "output": " SELECT ?date WHERE { <dataset I> :authorContributedOn ?date . }"
+  },
+  {
+    "instruction": " What are the features of dataset J?",
+    "input": "<dataset J>",
+    "output": " SELECT ?feature WHERE { <dataset J> :hasPart ?feature. ?feature rdf:type :nPOD_Feature. }"
+  },
+  {
+    "instruction": " What is the unit for the measurements in the dataset K?",
+    "input": "<dataset K>",
+    "output": " SELECT ?unit WHERE { <dataset K> :unit ?unit . }"
+  },
+  {
+    "instruction": " What are the datasets derived from dataset L?",
+    "input": "<dataset L>",
+    "output": " SELECT ?childDataset WHERE { ?childDataset :derivedFrom <dataset L> . }"
+  },
+  {
+    "instruction": "What is the superclass of the class \"nPOD_Quantified_Feature\"?",
+    "input": "",
+    "output": " SELECT ?superclass WHERE { :nPOD_Quantified_Feature rdfs:subClassOf ?superclass . }"
+  },
+  {
+    "instruction": " What is the range of the property \"assayType\"?",
+    "input": "",
+    "output": " SELECT ?range WHERE { :assayType rdfs:range ?range . }"
+  },
+  {
+    "instruction": " What is the label of the property that is the inverse of \"hasCasePool\"?",
+    "input": "",
+    "output": " SELECT ?inverseProperty WHERE { ?inverseProperty owl:inverseOf :hasCasePool . }"
+  },
+  {
+    "instruction": " Which resources have the property \"withSEM\"?",
+    "input": "",
+    "output": " SELECT ?resource WHERE { ?resource :withSEM [] . }"
+  },
+  {
+    "instruction": " What is the superclass of the class \"BinaryDatum\"?",
+    "input": "",
+    "output": " SELECT ?superclass WHERE { :binary_datum rdfs:subClassOf ?superclass . }"
+  },
+  {
+    "instruction": "Who is the main author for a particular dataset? ",
+    "input": "",
+    "output": " SELECT ?author WHERE { ?dataset :Author ?author. }"
+  },
+  {
+    "instruction": " What is the source of publication for a specific observed dataset? ",
+    "input": "",
+    "output": " SELECT ?pubSource WHERE { ?dataset :refSource ?pubSource. }"
+  },
+  {
+    "instruction": " How many data points does a specific dataset contain?",
+    "input": "",
+    "output": " SELECT ?points WHERE { ?dataset :dataPoints ?points.  }"
+  },
+  {
+    "instruction": " Which datasets were derived from a particular source dataset?",
+    "input": "",
+    "output": " SELECT ?derivedDataset WHERE { ?derivedDataset :derivedFrom ?sourceDataset. }"
+  },
+  {
+    "instruction": " What is the employed method used in a particular dataset?",
+    "input": "",
+    "output": " SELECT ?method WHERE { ?dataset :usedMethod ?method. }"
+  },
+  {
+    "instruction": " How many features does a specific dataset have?",
+    "input": "",
+    "output": " SELECT ?numFeatures WHERE { ?dataset :numFeatures ?numFeatures }"
+  },
+  {
+    "instruction": " Which datasets use an assay type \"X\"?",
+    "input": "",
+    "output": " SELECT ?dataset WHERE { ?dataset :assayType X. }"
+  },
+  {
+    "instruction": " Which datasets contain a cell count per square millimeter unit?",
+    "input": "",
+    "output": " SELECT ?dataset WHERE { ?dataset :unit :cells_per_square_mm }"
+  },
+  {
+    "instruction": " What is the PubMed date for a specific publication? ",
+    "input": "",
+    "output": " SELECT ?date WHERE { ?publication :pubmedDate ?date. }"
+  },
+  {
+    "instruction": " How many non-quantified measurement datum does a specific dataset contain? ",
+    "input": "",
+    "output": " SELECT (count(?datum) As ?count) WHERE { ?dataset :nPOD_Dataset_Item/Nonquantified_Measurement_Datum ?datum. }"
+  },
+  {
+    "instruction": " What are the FAIR related annotations on a specific dataset?",
+    "input": "",
+    "output": " SELECT ?annotation WHERE { ?dataset :FAIR_Annotation ?annotation. }"
+  },
+  {
+    "instruction": " Get list of all named authors from a specific dataset.",
+    "input": "",
+    "output": " SELECT ?author WHERE { ?dataset :namedAuthor ?author. }"
+  },
+  {
+    "instruction": "What is the definition of an individual-level dataset?",
+    "input": "",
+    "output": " SELECT ?definition WHERE { :Individual_Level_Dataset rdfs:comment ?definition . }"
+  },
+  {
+    "instruction": " What are the subclasses of the :Data_Grade class?",
+    "input": "",
+    "output": " SELECT ?subclass WHERE { ?subclass rdfs:subClassOf :Data_Grade . }"
+  },
+  {
+    "instruction": " Can you give an example of a method that has a derivative?",
+    "input": "",
+    "output": " SELECT ?method WHERE { ?method :hasDerivative [] . }"
+  },
+  {
+    "instruction": " What are the annotation classes related to the biological sample?",
+    "input": "",
+    "output": " SELECT ?annotation WHERE { ?annotation rdfs:subClassOf :Biological_Annotation . }"
+  },
+  {
+    "instruction": " What is the label of the property that links data to a unit type?",
+    "input": "",
+    "output": " SELECT ?property WHERE { ?property rdfs:subPropertyOf obo:IAO_0000039 . }"
+  },
+  {
+    "instruction": " What is the label of the property that links a dataset to its items?",
+    "input": "",
+    "output": " SELECT ?property WHERE { ?property rdfs:subPropertyOf :hasDataPart . }"
+  },
+  {
+    "instruction": " Can you provide an example of a datapoint property?",
+    "input": "",
+    "output": " SELECT ?property WHERE { ?property rdfs:label \"number of data points\"^^xsd:string . }"
+  },
+  {
+    "instruction": " What is the label of the property that links a method to the specific method(s) used in origination?",
+    "input": "",
+    "output": " SELECT ?property WHERE { ?property rdfs:label \"used method\"^^xsd:string . }"
+  },
+  {
+    "instruction": " How many nPOD Cases are there?",
+    "input": "",
+    "output": " SELECT (count(distinct ?case) as ?count) WHERE { ?case a :nPOD_case . }"
+  },
+  {
+    "instruction": " List all the donors by their age.",
+    "input": "",
+    "output": " SELECT ?donor ?age WHERE { ?donor :donorAge ?age . }"
+  },
+  {
+    "instruction": "Give all male nPOD donors.",
+    "input": "",
+    "output": " SELECT ?donor WHERE { ?donor a :Male . }"
+  },
+  {
+    "instruction": " How many female donors are there?",
+    "input": "",
+    "output": " SELECT (count(distinct ?donor) as ?count) WHERE { ?donor a :Female . }"
+  },
+  {
+    "instruction": " Display all the nPOD datasets.",
+    "input": "",
+    "output": " SELECT ?dataset WHERE { ?dataset a :nPOD_Dataset . }"
+  },
+  {
+    "instruction": " How many proteins are annotated in all nPOD datasets?",
+    "input": "",
+    "output": " SELECT (count(distinct ?protein) as ?count) WHERE { ?dataset a :nPOD_Dataset . ?dataset :UP ?protein . }"
+  },
+  {
+    "instruction": " Show all nPOD datasets with a viral theme.",
+    "input": "",
+    "output": " SELECT ?dataset WHERE { ?dataset a :nPOD_Dataset . ?dataset dct:theme :Viral . }"
+  },
+  {
+    "instruction": " How many nPOD datasets belong to the autoimmunity theme?",
+    "input": "",
+    "output": " SELECT (count(distinct ?dataset) as ?count) WHERE { ?dataset a :nPOD_Dataset . ?dataset dct:theme :Autoimmunity . }"
+  },
+  {
+    "instruction": " Show all nPOD datasets with an extracellular matrix theme.",
+    "input": "",
+    "output": " SELECT ?dataset WHERE { ?dataset a :nPOD_Dataset . ?dataset dct:theme :Extracellular_Matrix . }"
+  },
+  {
+    "instruction": " What are the datasets associated with Transplant theme?",
+    "input": "",
+    "output": " SELECT ?dataset WHERE { ?dataset a :nPOD_Dataset . ?dataset dct:theme :Transplant . }"
+  },
+  {
+    "instruction": " Find all donors diagnosed with Type 1 Diabetes.",
+    "input": "",
+    "output": " SELECT ?donor WHERE { ?donor a :T1D_Donor . }"
+  },
+  {
+    "instruction": " Find all donors diagnosed with Type 2 Diabetes.",
+    "input": "",
+    "output": " SELECT ?donor WHERE { ?donor a :T2D_Donor . }"
+  },
+  {
+    "instruction": " How many donors with pending classification are there in the dataset?",
+    "input": "",
+    "output": " SELECT (count(distinct ?donor) as ?count) WHERE { ?donor a :Pending . }"
+  },
+  {
+    "instruction": " Who are the donors that fall into the category of fulminant donors?",
+    "input": "",
+    "output": " SELECT ?donor WHERE { ?donor a :Fulminant_Donor . }"
+  },
+  {
+    "instruction": " Name all the donors who are categorized as transplant donors.",
+    "input": "",
+    "output": " SELECT ?donor WHERE { ?donor a :Transplant_Donor . }"
+  },
+  {
+    "instruction": " How many Autoab Positive Donors are there in the data?",
+    "input": "",
+    "output": " SELECT (count(distinct ?donor) as ?count) WHERE { ?donor a :Autoab_Pos_Donor . }"
+  },
+  {
+    "instruction": " List all the donors with no diabetes.",
+    "input": "",
+    "output": " SELECT ?donor WHERE { ?donor a :No_Diabetes_Donor . }"
+  },
+  {
+    "instruction": " How many donors are classified as Other_No_Diabetes_Donor?",
+    "input": "",
+    "output": " SELECT (count(distinct ?donor) as ?count) WHERE { ?donor a :Other_No_Diabetes_Donor . }"
+  },
+  {
+    "instruction": " Display all donors with Monogenic Diabetes.",
+    "input": "",
+    "output": " SELECT ?donor WHERE { ?donor a :Monogenic_Diabetes_Donor . }"
+  },
+  {
+    "instruction": "What kind of datasets are available in nPOD? ",
+    "input": "",
+    "output": " SELECT ?DatasetsWHERE {?Datasets rdf:type :Dataset .}"
+  },
+  {
+    "instruction": " Provide all the data that is funded by nPOD. ",
+    "input": "",
+    "output": " SELECT ?DataWHERE {?Data rdf:type :nPOD_Data .}"
+  },
+  {
+    "instruction": " Who is the primary author of nPOD datasets?",
+    "input": "",
+    "output": "SELECT ?AuthorWHERE {?nPOD_Dataset :hasAuthor ?Author .}"
+  },
+  {
+    "instruction": " Which datasets include summarized data?",
+    "input": "",
+    "output": "SELECT ?DatasetsWHERE {?Datasets rdf:type :Group_Level_Dataset .}"
+  },
+  {
+    "instruction": " What is the method used to derive nPOD datasets?",
+    "input": "",
+    "output": "SELECT ?MethodWHERE {?nPOD_Dataset :usedMethod ?Method .}"
+  },
+  {
+    "instruction": " Can you provide data quality or completeness annotation for nPOD datasets?",
+    "input": "",
+    "output": "SELECT ?Annotation WHERE {?nPOD_Dataset :hasAttribute :Data_QC_Annotation.}"
+  },
+  {
+    "instruction": " Which datasets contain individual-level data?",
+    "input": "",
+    "output": "SELECT ?DatasetsWHERE {?Datasets rdf:type :Individual_Level_Dataset .}"
+  },
+  {
+    "instruction": " Provide all the data that contains pooled output.",
+    "input": "",
+    "output": "SELECT ?DataWHERE {?Data rdf:type :pooled_output_datum .}"
+  },
+  {
+    "instruction": " Which datasets are complete cases?",
+    "input": "",
+    "output": "SELECT ?DatasetsWHERE {?Datasets rdf:type :complete_cases .}"
+  },
+  {
+    "instruction": " Provide information about the data processing pipeline used in nPOD datasets.",
+    "input": "",
+    "output": "SELECT ?PipelineWHERE {?nPOD_Dataset :usedMethod ?Pipeline FILTER regex(?Method, 'Data_Processing_Pipeline') .}"
+  },
+  {
+    "instruction": " What are the named authors of dataset \"XYZ\"?",
+    "input": "<dataset_XYZ>",
+    "output": " SELECT ?author WHERE { <dataset_XYZ> :namedAuthor ?author }"
+  },
+  {
+    "instruction": " Which datasets have \"John Doe\" as a first author?",
+    "input": "",
+    "output": " SELECT ?dataset WHERE { ?dataset :namedFirstAuthor \"John Doe\" }"
+  },
+  {
+    "instruction": " Which datasets are derived from \"Dataset_A\"?",
+    "input": "",
+    "output": " SELECT ?dataset WHERE { ?dataset :derivedFrom <Dataset_A> }"
+  },
+  {
+    "instruction": " Which assays were used in the creation of dataset \"XYZ\"?",
+    "input": "<dataset_XYZ>",
+    "output": " SELECT ?assay WHERE { <dataset_XYZ> :usedMethod ?assay .  ?assay rdf:type :Assay }"
+  },
+  {
+    "instruction": " How many items does \"Dataset_B\" contain?",
+    "input": "<Dataset_B>",
+    "output": " SELECT COUNT(?item) WHERE { <Dataset_B> :hasDataPart ?item }"
+  },
+  {
+    "instruction": " Are any datasets potentially combinable with \"Dataset_C\"?",
+    "input": "<Dataset_C>",
+    "output": " SELECT ?dataset WHERE { <Dataset_C> :potentiallyCombinable ?dataset }"
+  },
+  {
+    "instruction": " What is the unit of measurements in dataset \"XYZ\"?",
+    "input": "<dataset_XYZ>",
+    "output": " SELECT ?unit WHERE { <dataset_XYZ> :unit ?unit }"
+  },
+  {
+    "instruction": " Which nPOD datasets are associated with \"Author_ABC\"?",
+    "input": "<Author_ABC>",
+    "output": " SELECT ?dataset WHERE { ?dataset rdf:type :nPOD_Dataset . ?dataset :hasAuthor <Author_ABC> }"
+  },
+  {
+    "instruction": " Which methods have outputted the \"nPOND_dataset\"?",
+    "input": "<nPOD_dataset>",
+    "output": " SELECT ?method WHERE { <nPOD_dataset> :usedMethod ?method}"
+  },
+  {
+    "instruction": " What are the incomplete cases in \"DataSet_1\"?",
+    "input": "<DataSet_1>",
+    "output": " SELECT ?case WHERE { <DataSet_1> :caseLinkage ?case . ?case rdf:type :incomplete_cases }"
+  },
+  {
+    "instruction": " Which datasets contain preliminary data?",
+    "input": "",
+    "output": " SELECT ?dataset WHERE { ?dataset :dataGrade :preliminary }"
+  },
+  {
+    "instruction": " What is the reference source for dataset \"XYZ\"?",
+    "input": "<dataset_XYZ>",
+    "output": " SELECT ?source WHERE { <dataset_XYZ> :refSource ?source }"
+  },
+  {
+    "instruction": " What is the number of features in dataset \"XYZ\"?",
+    "input": "<dataset_XYZ>",
+    "output": " SELECT ?num WHERE { <dataset_XYZ> :numFeatures ?num"
+  },
+  {
+    "instruction": "\"Which datasets are associated with the author John Doe?\" ",
+    "input": "Doe, J.",
+    "output": " SELECT ?datasetWHERE{    ?dataset :namedAuthor \"Doe, J.\"^^xsd:string .}"
+  },
+  {
+    "instruction": " \"What are the assays used in the nPOD dataset?\" ",
+    "input": "",
+    "output": " SELECT ?assayType WHERE {    ?dataset :assayType ?assayType .    ?dataset a :nPOD_Dataset .}"
+  },
+  {
+    "instruction": " \"What is the count of cells per islet for a given nPOD item?\" ",
+    "input": "",
+    "output": " SELECT ?count WHERE{    ?item :unit :cells_per_islet .    ?item :measurementValue ?count .    ?item a :nPOD_Dataset_Item .}"
+  },
+  {
+    "instruction": " \"What are the datasets with complete case data?\" ",
+    "input": "",
+    "output": " SELECT ?dataset WHERE{    ?dataset :caseLinkage :complete_cases .}"
+  },
+  {
+    "instruction": " \"Which datasets have been derived from other datasets?\"",
+    "input": "",
+    "output": " SELECT ?derived_dataset WHERE{    ?derived_dataset :derivedFrom ?source_dataset .}"
+  },
+  {
+    "instruction": " \"Which datasets are classified as exploratory data?\" ",
+    "input": "",
+    "output": " SELECT ?dataset WHERE{    ?dataset :dataGrade :exploratory .}"
+  },
+  {
+    "instruction": " \"What is the method of data derivation used in a given dataset?\" ",
+    "input": "",
+    "output": " SELECT ?derivationMethod WHERE{    ?dataset :usedMethod ?der"
+  },
+  {
+    "instruction": "What kind of datasets are available?",
+    "input": "",
+    "output": " SELECT DISTINCT ?type WHERE { ?dataset a ?type . }"
+  },
+  {
+    "instruction": " What is the nPOD data?",
+    "input": "",
+    "output": " SELECT ?data WHERE { ?data a :nPOD_Data . }"
+  },
+  {
+    "instruction": " Show me a list of individual-level datasets.",
+    "input": "",
+    "output": " SELECT ?dataset WHERE { ?dataset a :Individual_Level_Dataset . }"
+  },
+  {
+    "instruction": " Does the dataset \"dataset_1\" belong to individual-level datasets?",
+    "input": "",
+    "output": " ASK WHERE { :dataset_1 a :Individual_Level_Dataset . }"
+  },
+  {
+    "instruction": " What are the annotations for the dataset \"dataset_1\"?",
+    "input": "",
+    "output": " SELECT ?annotation WHERE { :dataset_1 :hasAnnotation ?annotation . }"
+  },
+  {
+    "instruction": " How many group-level datasets are in the knowledge graph?",
+    "input": "",
+    "output": " SELECT COUNT(*) WHERE { ?dataset a :Group_Level_Dataset . }"
+  },
+  {
+    "instruction": " What collection of items does the nPOD dataset contain?",
+    "input": "",
+    "output": " SELECT ?item WHERE { ?dataset dct:hasPart ?item . }"
+  },
+  {
+    "instruction": " Show me a list of nPOD dataset items.",
+    "input": "",
+    "output": " SELECT ?item where { ?item a :nPOD_Dataset_Item . }"
+  },
+  {
+    "instruction": " What features can be extracted from nPOD dataset items?",
+    "input": "",
+    "output": " SELECT ?feature WHERE { ?feature a :nPOD_Feature . }"
+  },
+  {
+    "instruction": " How many quantified measurement data do we have?",
+    "input": "",
+    "output": " SELECT COUNT(*) WHERE { ?datum a :Quantified_Measurement_Datum . }"
+  },
+  {
+    "instruction": " What are the Dataset-Level Annotations related to dataset \"dataset_1\"?",
+    "input": "",
+    "output": " SELECT ?annotation WHERE { :dataset_1 :hasAnnotation ?annotation . ?annotation a :Dataset_Level_Annotation . }"
+  },
+  {
+    "instruction": " How many Feature-Level Annotations do we have in the knowledge graph?",
+    "input": "",
+    "output": " SELECT COUNT(*) WHERE { ?annotation a :Feature_Level_Annotation . }"
+  },
+  {
+    "instruction": " Which Biological Annotations are related to T1D_Donor \"donor_1\"?",
+    "input": "",
+    "output": " SELECT ?annotation WHERE { :donor_1 :hasAnnotation ?annotation . ?annotation a :Biological_Annotation . }"
+  },
+  {
+    "instruction": " What are the Donor Annotations of the T1D_Donor \"donor_1\"?",
+    "input": "",
+    "output": " SELECT ?annotation WHERE { :donor_1 :hasAnnotation ?annotation . ?annotation a :Donor_Annotation . }"
+  },
+  {
+    "instruction": " How many Cell_Tissue_Annotation do we have in the database?",
+    "input": "",
+    "output": " SELECT COUNT(*) WHERE { ?annotation a :Cell_Tissue_Annotation . }"
+  },
+  {
+    "instruction": " Who is the NCBI Gene annotation related to the donor \"donor_1\"?",
+    "input": "",
+    "output": " SELECT ?annotation WHERE { :donor_1 :hasAnnotation ?annotation . ?annotation a :Gene_Annotation . }"
+  },
+  {
+    "instruction": " Which donors are associated with the Extracellular_Matrix theme?",
+    "input": "",
+    "output": " SELECT ?donor WHERE { ?donor a :Donor . ?donor :AssociatedWith :Extracellular_Matrix . }"
+  },
+  {
+    "instruction": " How many T1D donors are there?",
+    "input": "",
+    "output": " SELECT COUNT(*) WHERE { ?donor a :T1D_Donor . }"
+  },
+  {
+    "instruction": " Who are the T2D donors?",
+    "input": "",
+    "output": " SELECT ?donor WHERE { ?donor a :T2D_Donor . }"
+  },
+  {
+    "instruction": " Who are the donors with pending classification?",
+    "input": "",
+    "output": " SELECT ?donor WHERE { ?donor a :Pending . }"
+  },
+  {
+    "instruction": " Who are the fulminant diabetes donors?",
+    "input": "",
+    "output": " SELECT ?donor WHERE { ?donor a :Fulminant_Donor . }"
+  },
+  {
+    "instruction": " List down the Autoab_Pos_Donors",
+    "input": "",
+    "output": " SELECT ?donor WHERE { ?donor a :Autoab_Pos_Donor . }"
+  },
+  {
+    "instruction": " Show me the data linked to a specific biological process context.",
+    "input": "",
+    "output": " SELECT ?data WHERE { ?data :bioProcess <specific_bio_process> . }"
+  },
+  {
+    "instruction": " Show the relationship between data and a defined cellular component context.",
+    "input": "",
+    "output": " SELECT ?data WHERE { ?data :cellComponent <specific_cell_component> . }"
+  },
+  {
+    "instruction": " Show the relationship between the data and the cell or tissue used as input.",
+    "input": "",
+    "output": " SELECT ?data WHERE { ?data :cellTissue <specific_cell_tissue> . }"
+  },
+  {
+    "instruction": " List down the cases associated with a resource.",
+    "input": "",
+    "output": " SELECT ?case WHERE { <specific_resource> :hasCase ?case . }"
+  },
+  {
+    "instruction": " What are the group of cases linked to a data?",
+    "input": "",
+    "output": " SELECT ?casePool WHERE { <specific_data> :hasCasePool ?casePool . }"
+  },
+  {
+    "instruction": " What data resources link to a UniProt entity?",
+    "input": "",
+    "output": " SELECT ?data WHERE { ?data :UP <uniprot_entity> . }"
+  },
+  {
+    "instruction": " Show data linked to a defined molecular function context.",
+    "input": "",
+    "output": " SELECT ?data WHERE { ?data :molecularFn <specific_molecular_function> . }"
+  },
+  {
+    "instruction": " List the data that develops from a specific entity.",
+    "input": "",
+    "output": " SELECT ?data WHERE { ?data :develops_from <specific_entity> . }"
+  },
+  {
+    "instruction": " Show data linked to a relevant biological process.",
+    "input": "",
+    "output": " SELECT ?data WHERE { ?data :regulates <specific_bio_process> . }"
+  },
+  {
+    "instruction": " List the data resources that positively regulate a specified function.",
+    "input": "",
+    "output": " SELECT ?data WHERE { ?data :positively_regulates <function> . }"
+  },
+  {
+    "instruction": " List data resources that negatively regulate a specified function.",
+    "input": "",
+    "output": " SELECT ?data WHERE { ?data :negatively_regulates <function"
+  },
+  {
+    "instruction": "Who is the author of the dataset?",
+    "input": "",
+    "output": " SELECT ?author WHERE { ?dataset :hasAuthor ?author }"
+  },
+  {
+    "instruction": " What are the derived data in this dataset?",
+    "input": "",
+    "output": " SELECT ?derivedData WHERE { ?derivedData :derivedFrom ?dataset }"
+  },
+  {
+    "instruction": " What is the provenance of this dataset?",
+    "input": "",
+    "output": " SELECT ?provenance WHERE { ?dataset :Provenance ?provenance }"
+  },
+  {
+    "instruction": " What measurements have been taken in this dataset?",
+    "input": "",
+    "output": " SELECT ?measurement WHERE { ?dataset :hasPart ?measurement . ?measurement rdf:type :nPOD_Feature }"
+  },
+  {
+    "instruction": " How many cases are complete in this dataset?",
+    "input": "",
+    "output": " SELECT (COUNT(?case) AS ?count) WHERE { ?case :caseLinkage :complete_cases }"
+  },
+  {
+    "instruction": " How many cases are incomplete in this dataset?",
+    "input": "",
+    "output": " SELECT (COUNT(?case) AS ?count) WHERE { ?case :caseLinkage :incomplete_cases }"
+  },
+  {
+    "instruction": " What is the quality grade of this dataset?",
+    "input": "",
+    "output": " SELECT ?grade WHERE { ?dataset :dataGrade ?grade }"
+  },
+  {
+    "instruction": " Has this dataset been published?",
+    "input": "",
+    "output": " ASK WHERE { ?dataset :dataGrade :published }"
+  },
+  {
+    "instruction": " What is the method used to derive this data?",
+    "input": "",
+    "output": " SELECT ?method WHERE { ?data :usedMethod ?method }"
+  },
+  {
+    "instruction": " What dataset does this item belong to?",
+    "input": "",
+    "output": " SELECT ?dataset WHERE { ?item :inDataset ?dataset }"
+  },
+  {
+    "instruction": " What is the assay type of this dataset?",
+    "input": "",
+    "output": " SELECT ?assay WHERE { ?dataset :assayType ?assay }"
+  },
+  {
+    "instruction": " What is the publication source of this dataset?",
+    "input": "",
+    "output": " SELECT ?pubSource WHERE { ?dataset :pubSource ?pubSource }"
+  },
+  {
+    "instruction": " What are the items in this dataset?",
+    "input": "",
+    "output": " SELECT ?item WHERE { ?dataset :hasDataPart ?item }"
+  },
+  {
+    "instruction": " Which datasets have more than 100 features?",
+    "input": "",
+    "output": " SELECT ?dataset WHERE { ?dataset :numFeatures ?num . FILTER(?num > 100) }"
+  },
+  {
+    "instruction": " What are the different types of datasets in the graph?",
+    "input": "<Author_ID>",
+    "output": " SELECT DISTINCT ?type WHERE {?s a :Dataset . ?s rdf:type ?type}"
+  },
+  {
+    "instruction": " Which datasets were created by a specific author?",
+    "input": "",
+    "output": " SELECT ?dataset WHERE {?dataset :hasAuthor <Author_ID> .}"
+  },
+  {
+    "instruction": " What is the publication source of a given dataset?",
+    "input": "<Dataset_ID>",
+    "output": " SELECT ?source WHERE {<Dataset_ID> :refSource ?source .}"
+  },
+  {
+    "instruction": " Which datasets are linked to another specific datasetID?",
+    "input": "<Dataset_ID>",
+    "output": " SELECT ?dataset WHERE {?dataset :derivedFrom <Dataset_ID> .}"
+  },
+  {
+    "instruction": " Which specific datasets are integrated with another dataset?",
+    "input": "<Dataset_ID>",
+    "output": " SELECT ?dataset WHERE {?dataset :integratedPart  <Dataset_ID>.}"
+  },
+  {
+    "instruction": " Which datasets have used a specific method?",
+    "input": "<Method_ID>",
+    "output": " SELECT ?dataset WHERE {?dataset :usedMethod  <Method_ID>.}"
+  },
+  {
+    "instruction": " What datasets have been derived from a given dataset?",
+    "input": "<Dataset_ID>",
+    "output": " SELECT ?dataset WHERE {<Dataset_ID> :hasDerivative ?dataset .}"
+  },
+  {
+    "instruction": " What are the cases linked to a given dataset?",
+    "input": "<Dataset_ID>",
+    "output": " SELECT ?case WHERE {<Dataset_ID> :caseLinkage ?case .}"
+  },
+  {
+    "instruction": " What is the data grade of a specific dataset?",
+    "input": "<Dataset_ID>",
+    "output": " SELECT ?grade WHERE {<Dataset_ID> :dataGrade ?grade .}"
+  },
+  {
+    "instruction": " What parts does a specific dataset have?",
+    "input": "<Dataset_ID>",
+    "output": " SELECT ?part WHERE {<Dataset_ID> :hasPart ?part .}"
+  },
+  {
+    "instruction": " In what dataset a specific part is found?",
+    "input": "<Part_ID>",
+    "output": " SELECT ?dataset WHERE {<Part_ID> :inDataset ?dataset .}"
+  },
+  {
+    "instruction": " What is the version of a specific dataset?",
+    "input": "<Dataset_ID>",
+    "output": " SELECT ?version WHERE {<Dataset_ID> :version ?version .}"
+  },
+  {
+    "instruction": " Who is the author who contributed a specific dataset?",
+    "input": "<Dataset_ID>",
+    "output": " SELECT ?author WHERE {<Dataset_ID> :givingAuthor ?author .}"
+  },
+  {
+    "instruction": " What datasets are part of the 'Omics theme'?",
+    "input": "",
+    "output": " SELECT ?dataset WHERE {  ?dataset a :Dataset .  ?dataset :Theme :Omics .}"
+  },
+  {
+    "instruction": " What are the various annotations available for nPOD datasets?",
+    "input": "",
+    "output": "SELECT ?annotation WHERE {  ?dataset a :nPOD_Dataset .  ?dataset :Annotation ?annotation .}"
+  },
+  {
+    "instruction": " How many T1D donors are there in the database?",
+    "input": "",
+    "output": " SELECT (COUNT(?donor) AS ?numDonors) WHERE {  ?donor a :T1D_Donor .}"
+  },
+  {
+    "instruction": " Retrieve age of donors with Caucasian race?",
+    "input": "",
+    "output": " SELECT ?donor ?age WHERE {  ?donor a :nPOD_Donor .  ?donor :Race :Caucasian .  ?donor :donorAge ?age .}"
+  },
+  {
+    "instruction": " What is the sex distribution among the nPOD donors?",
+    "input": "",
+    "output": " SELECT ?sex (COUNT(?donor) AS ?numDonors) WHERE {  ?donor a :nPOD_Donor .  ?donor :Sex ?sex .} GROUP BY ?sex"
+  },
+  {
+    "instruction": "Who are the Type 1 Diabetes donors in the dataset? ",
+    "input": "",
+    "output": " SELECT ?donor WHERE { ?donor rdf:type :T1D_Donor }"
+  },
+  {
+    "instruction": " What are some features extracted from the dataset? ",
+    "input": "",
+    "output": " SELECT ?feature WHERE { ?feature rdf:type :nPOD_Feature }"
+  },
+  {
+    "instruction": " What are the Autoimmune related themes in the dataset? ",
+    "input": "",
+    "output": " SELECT ?theme WHERE { ?theme rdf:type :Autoimmunity }"
+  },
+  {
+    "instruction": " List all individual-level datasets available?",
+    "input": "",
+    "output": " SELECT ?dataset WHERE { ?dataset rdf:type :Individual_Level_Dataset }"
+  },
+  {
+    "instruction": " What proteins have been studied in the dataset?",
+    "input": "",
+    "output": " SELECT ?protein WHERE { ?protein rdf:type :UniProt_Protein }"
+  },
+  {
+    "instruction": " What are the gestational diabetes donors? ",
+    "input": "",
+    "output": " SELECT ?donor WHERE { ?donor rdf:type :Gestational_Diabetes_Donor }"
+  },
+  {
+    "instruction": " Who are the donors with no diabetes history in the dataset?",
+    "input": "",
+    "output": " SELECT ?donor WHERE { ?donor rdf:type :No_Diabetes_Donor }"
+  },
+  {
+    "instruction": " What datasets are group-level?",
+    "input": "",
+    "output": " SELECT ?dataset WHERE { ?dataset rdf:type :Group_Level_Dataset }"
+  },
+  {
+    "instruction": " What are the viral related themes in the dataset? ",
+    "input": "",
+    "output": " SELECT ?theme WHERE { ?theme rdf:type :Viral }"
+  },
+  {
+    "instruction": " What are the male donors in the dataset?",
+    "input": "",
+    "output": " SELECT ?donor WHERE { ?donor rdf:type :Male }"
+  },
+  {
+    "instruction": " What are the female donors in the dataset?",
+    "input": "",
+    "output": " SELECT ?donor WHERE {?donor rdf:type :Female}"
+  },
+  {
+    "instruction": " Who are the Type 2 Diabetes donors in the dataset?",
+    "input": "",
+    "output": " SELECT ?donor WHERE {?donor rdf:type :T2D_Donor }"
+  },
+  {
+    "instruction": " What cases have been annotated with OMICS theme?",
+    "input": "",
+    "output": " SELECT ?case WHERE {?case rdf:type :nPOD_case. ?case rdf:type :Omics}"
+  },
+  {
+    "instruction": " What are the racial groups represented in the donors?",
+    "input": "",
+    "output": " SELECT ?race WHERE {?race rdf:type :Race}"
+  },
+  {
+    "instruction": " Who are the Hispanic Latino donors in the dataset?",
+    "input": "",
+    "output": " SELECT ?donor WHERE {?donor rdf:type :Hispanic_Latino }"
+  },
+  {
+    "instruction": " List all the African American donors in the data set?",
+    "input": "",
+    "output": " SELECT ?donor WHERE {?donor rdf:type :African_American}"
+  },
+  {
+    "instruction": " Which donors had diabetes history?",
+    "input": "",
+    "output": " SELECT ?donor WHERE {?donor rdf:type :General_Diabetes_Donor}"
+  },
+  {
+    "instruction": " Who are the Cystic Fibrosis donors in the dataset?",
+    "input": "",
+    "output": " SELECT ?donor WHERE {?donor rdf:type :Cystic_Fibrosis_Donor }"
+  },
+  {
+    "instruction": " Which genes have been studied in the dataset?",
+    "input": "",
+    "output": " SELECT ?gene WHERE { ?gene rdf:type :NCBI_Gene }"
+  },
+  {
+    "instruction": " Which cellular components have been annotated in the dataset?",
+    "input": "",
+    "output": " SELECT ?component WHERE { ?component rdf:type :Cellular_Component_Annotation }"
+  },
+  {
+    "instruction": " Which biological processes have been annotated in the dataset?",
+    "input": "",
+    "output": " SELECT ?process WHERE { ?process rdf:type :Biological_Process_Annotation }"
+  },
+  {
+    "instruction": " What annotations are related to cell or tissue context?",
+    "input": "",
+    "output": " SELECT ?annotation WHERE { ?annotation rdf:type :Cell_Tissue_Context_Annotation }"
+  },
+  {
+    "instruction": " Who are the monogenic diabetes donors in the dataset?",
+    "input": "",
+    "output": " SELECT ?donor WHERE { ?donor rdf:type :Monogenic_Diabetes_Donor }"
+  },
+  {
+    "instruction": " List all the American Indian/Alaska Native donors in the data set?",
+    "input": "",
+    "output": " SELECT ?donor WHERE {?donor rdf:type :American_Indian_Alaska_Native}"
+  },
+  {
+    "instruction": " List all donors who fall into the Multiracial category?",
+    "input": "",
+    "output": " SELECT ?donor WHERE {?donor rdf:type :Multiracial}"
+  },
+  {
+    "instruction": " What is the donor's age for each case?",
+    "input": "",
+    "output": " SELECT ?case ?age WHERE { ?case rdf:type :nPOD_case. ?case :donorAge ?age}"
+  },
+  {
+    "instruction": " Which datasets are explicitly not categorical measurement, sequence data, 3D structural organization datum, setting datum?",
+    "input": "",
+    "output": " SELECT ?data WHERE { ?data rdf:type :Nonquantified_Measurenent_Datum }"
+  },
+  {
+    "instruction": " Who are the donors with autoantibody-positive status in the data set?",
+    "input": "",
+    "output": " SELECT ?donor WHERE {?donor rdf:type :Autoab_Pos_Donor}"
+  },
+  {
+    "instruction": " Who are the donors linked with the transplant theme in the dataset?",
+    "input": "",
+    "output": " SELECT ?donor WHERE {?donor rdf:type :Transplant_Donor }"
+  },
+  {
+    "instruction": " Who are the donors with pending classification in the dataset?",
+    "input": "",
+    "output": " SELECT ?donor WHERE {?donor rdf:type :Pending }"
+  },
+  {
+    "instruction": " What caucasian donors are available in the dataset?",
+    "input": "",
+    "output": " SELECT ?donor WHERE {?donor rdf:type :Caucasian}"
+  },
+  {
+    "instruction": " Who are the donors related to the omics theme?",
+    "input": "",
+    "output": " SELECT ?donor WHERE {?donor rdf:type :Omics}"
+  },
+  {
+    "instruction": " Which datasets are nPOD-related?",
+    "input": "",
+    "output": " SELECT ?dataset WHERE { ?dataset rdf:type :nPOD_Data }"
+  },
+  {
+    "instruction": " What donors are related to the cross-disease connection theme?",
+    "input": "",
+    "output": " SELECT ?donor WHERE {?donor rdf:type :Cross_Disease }"
+  },
+  {
+    "instruction": "What are the different types of datasets in the nPOD knowledge graph?",
+    "input": "",
+    "output": " SELECT ?datasetType WHERE {?datasetType rdfs:subClassOf :Dataset .}"
+  },
+  {
+    "instruction": " What are the different types of features in the nPOD knowledge graph?",
+    "input": "",
+    "output": " SELECT ?featureType WHERE {?featureType rdfs:subClassOf :nPOD_Feature .}"
+  },
+  {
+    "instruction": " What are the different types of annotation classes in the nPOD knowledge graph?",
+    "input": "",
+    "output": " SELECT ?annotationType WHERE {?annotationType rdfs:subClassOf :Annotation .}"
+  },
+  {
+    "instruction": " What are the different measurement scales used in the nPOD knowledge graph?",
+    "input": "",
+    "output": " SELECT ?scaleType WHERE {?scaleType rdfs:subClassOf :measurement_scale .}"
+  },
+  {
+    "instruction": " What are the different methods used in the nPOD knowledge graph?",
+    "input": "",
+    "output": " SELECT ?methodType WHERE {?methodType rdfs:subClassOf :Method .}"
+  },
+  {
+    "instruction": " What are the different biological process annotations in the nPOD knowledge graph?",
+    "input": "",
+    "output": " SELECT ?processType WHERE {?processType rdfs:subClassOf :Biological_Process_Annotation .}"
+  },
+  {
+    "instruction": " What are the different cellular component annotations in the nPOD knowledge graph?",
+    "input": "",
+    "output": " SELECT ?componentType WHERE {?componentType rdfs:subClassOf :Cellular_Component_Annotation .}"
+  },
+  {
+    "instruction": " What are the different molecular function annotations in the nPOD knowledge graph?",
+    "input": "",
+    "output": " SELECT ?functionType WHERE {?functionType rdfs:subClassOf :Molecular_Function_Annotation .}"
+  },
+  {
+    "instruction": "What is the total number of nPOD datasets available?",
+    "input": "",
+    "output": " SELECT (COUNT(*) as ?Total_Datasets) WHERE {?s a :nPOD_Dataset}"
+  },
+  {
+    "instruction": " List all the datasets at the individual level.",
+    "input": "",
+    "output": " SELECT ?Dataset WHERE {?Dataset a :Individual_Level_Dataset}"
+  },
+  {
+    "instruction": " What are the nPOD dataset items available in specific Dataset? (Assume Dataset's URI is D_URI)",
+    "input": "D_URI",
+    "output": " SELECT ?Dataset_Item WHERE {?Dataset_Item dct:isPartOf D_URI}"
+  },
+  {
+    "instruction": " Are there any quantified features available in the nPOD dataset items? ",
+    "input": "",
+    "output": " SELECT ?Quantified_Feature WHERE {?Quantified_Feature a :nPOD_Quantified_Feature}"
+  },
+  {
+    "instruction": " List all the nPOD Datasets related to the 'Viral' theme.",
+    "input": "",
+    "output": " SELECT ?Dataset WHERE {?Dataset a :nPOD_Dataset . ?Dataset :hasTheme :Viral}"
+  },
+  {
+    "instruction": " How many nPOD Donors are there in the graph? ",
+    "input": "",
+    "output": " SELECT (COUNT(*) as ?Total_Donors) WHERE {?s a :nPOD_Donor}"
+  },
+  {
+    "instruction": " List all male donors.",
+    "input": "",
+    "output": " SELECT ?Donor WHERE {?Donor a :nPOD_Donor . ?Donor :hasSex :Male}"
+  },
+  {
+    "instruction": " What is the average age of all female donors?",
+    "input": "",
+    "output": " SELECT (AVG(?age) as ?Average_Age) WHERE {?s :donorAge ?age . ?s :hasSex :Female}"
+  },
+  {
+    "instruction": " How many T1D donors are available? ",
+    "input": "",
+    "output": " SELECT (COUNT(*) as ?Total_T1D_Donors) WHERE {?s a :T1D_Donor}"
+  },
+  {
+    "instruction": " Which nPOD donor donated for the 'Autoimmunity' theme?",
+    "input": "",
+    "output": " SELECT ?Donor WHERE {?Donor a :nPOD_Donor . ?Donor :hasTheme :Autoimmunity}"
+  },
+  {
+    "instruction": " Which UniProt proteins are annotated in the nPOD dataset? ",
+    "input": "",
+    "output": " SELECT DISTINCT ?Protein WHERE {?s a :nPOD_Dataset . ?s :hasAnnotion :UP}"
+  },
+  {
+    "instruction": " Which genes (NCBI) are annotated in the nPOD dataset?",
+    "input": "",
+    "output": " SELECT DISTINCT ?Gene WHERE {?s a :nPOD_Dataset . ?s :hasAnnotion :GeneID}"
+  },
+  {
+    "instruction": " What are the racial distributions of nPOD donors?",
+    "input": "",
+    "output": " SELECT ?Race (COUNT(*) as ?Count) WHERE {?s a :nPOD_Donor . ?s :hasRace ?Race} GROUP BY ?Race"
+  },
+  {
+    "instruction": " Which T1D donors are Asian?",
+    "input": "",
+    "output": " SELECT ?Donor WHERE {?Donor a :T1D_Donor . ?Donor :hasRace :Asian}"
+  },
+  {
+    "instruction": " List nPOD datasets annotated with a given gene id? (Assume ID is Gene_ID)",
+    "input": "",
+    "output": " SELECT ?Dataset WHERE {?Dataset :hasAnnotion ?Annotation . ?Annotation :hasIdentifier \"Gene_ID\"}"
+  },
+  {
+    "instruction": " List the themes related to a given nPOD dataset. (Assume Dataset's URI is D_URI)",
+    "input": "D_URI",
+    "output": " SELECT ?Theme WHERE {D_URI :hasTheme ?Theme}"
+  },
+  {
+    "instruction": " List all nPOD donors with the 'Autoimmunity' theme.",
+    "input": "",
+    "output": " SELECT ?Donor WHERE {?Donor a :nPOD_Donor . ?Donor :hasTheme :Autoimmunity}"
+  },
+  {
+    "instruction": " How many datasets are related to the 'Omics' theme? ",
+    "input": "",
+    "output": " SELECT (COUNT(*) as ?Total_Omics) WHERE {?s :hasTheme :Omics}"
+  },
+  {
+    "instruction": " List all nPOD donors who had their data related to specific Biological Process. (Assume Biological Process's URI is BP_URI)",
+    "input": "",
+    "output": " SELECT ?Donor WHERE {?Data :bioProcess BP_URI . ?Data :hasCase ?Donor}"
+  },
+  {
+    "instruction": " List all nPOD donors who had their data related to specific Cellular Component. (Assume Cellular Component's URI is CC_URI)",
+    "input": "",
+    "output": " SELECT ?Donor WHERE {?Data :cellComponent CC_URI . ?Data :hasCase ?Donor}"
+  },
+  {
+    "instruction": " How many multiracial nPOD donors are available? ",
+    "input": "",
+    "output": " SELECT (COUNT(*) as ?Multiracial_Donors) WHERE {?s :hasRace :Multiracial}"
+  },
+  {
+    "instruction": " List all T1D donors who had their data related to a 'Viral' theme.",
+    "input": "",
+    "output": " SELECT ?Donor WHERE {?Data :hasTheme :Viral . ?Data :hasCase ?Donor . ?Donor a :T1D_Donor}"
+  },
+  {
+    "instruction": " How many datasets are related to the 'Cross-disease' theme? ",
+    "input": "",
+    "output": " SELECT (COUNT(*) as ?Total_CrossDisease) WHERE {?s :hasTheme :Cross_Disease}"
+  },
+  {
+    "instruction": " What is the maximum age of the nPOD donors? ",
+    "input": "",
+    "output": " SELECT (MAX(?age) as ?MaxAge) WHERE {?s :donorAge ?age . ?s a :nPOD_Donor}"
+  },
+  {
+    "instruction": " What is the minimum age of the nPOD donors?",
+    "input": "",
+    "output": " SELECT (MIN(?age) as ?MinAge) WHERE {?s :donorAge ?age . ?s a :nPOD_Donor}"
+  },
+  {
+    "instruction": " How many male donors are there with the T1D classification?",
+    "input": "",
+    "output": " SELECT (COUNT(*) as ?Count) WHERE {?s a :T1D_Donor . ?s :hasSex :Male}"
+  },
+  {
+    "instruction": " How many female donors are there with T2D classification?",
+    "input": "",
+    "output": " SELECT (COUNT(*) as ?Count) WHERE {?s a :T2D_Donor . ?s :hasSex :Female}"
+  },
+  {
+    "instruction": "What is the definition of the class \"Individual_Level_Dataset\"? ",
+    "input": "",
+    "output": " SELECT ?definition WHERE { :Individual_Level_Dataset rdfs:comment ?definition }"
+  },
+  {
+    "instruction": " Which datasets are associated with the \"Extracellular Matrix\" theme? ",
+    "input": "",
+    "output": " SELECT ?dataset WHERE { ?dataset :bioProcess :Extracellular_Matrix }"
+  },
+  {
+    "instruction": " What is the unit for the \"normalized signal intensity\" feature? ",
+    "input": "",
+    "output": " SELECT ?unit WHERE { :normalized_signal_intensity :unit ?unit }"
+  },
+  {
+    "instruction": " Which annotations are related to the \"Gene Ontology annotation\" theme? ",
+    "input": "",
+    "output": " SELECT ?annotation WHERE { ?annotation rdfs:subClassOf :Gene_Ontology_Annotation }"
+  },
+  {
+    "instruction": " What is the authorship information for the dataset with the identifier \"1234\"? ",
+    "input": "",
+    "output": " SELECT ?author ?date WHERE { ?dataset dct:identifier \"1234\" . ?dataset :hasAuthor ?author . ?dataset :authorContributedOn ?date }"
+  },
+  {
+    "instruction": " How many features are there in the dataset with the identifier \"5678\"? ",
+    "input": "",
+    "output": " SELECT ?numFeatures WHERE { ?dataset dct:identifier \"5678\" . ?dataset :numFeatures ?numFeatures }"
+  },
+  {
+    "instruction": " What is the author's note for the feature with the identifier \"abcd\"? ",
+    "input": "",
+    "output": " SELECT ?note WHERE { ?feature dct:identifier \"abcd\" . ?feature :authorNote ?note }"
+  },
+  {
+    "instruction": "What is the definition of a dataset?",
+    "input": "",
+    "output": " SELECT ?definition WHERE { :Dataset rdfs:comment ?definition . }"
+  },
+  {
+    "instruction": " What is the definition of an individual-level dataset?",
+    "input": "",
+    "output": " SELECT ?definition WHERE { :Individual_Level_Dataset rdfs:comment ?definition . }"
+  },
+  {
+    "instruction": " What are some examples of nPOD datasets?",
+    "input": "",
+    "output": " SELECT ?dataset WHERE { ?dataset a :nPOD_Dataset . } LIMIT 5"
+  },
+  {
+    "instruction": " What is the definition of a quantified feature?",
+    "input": "",
+    "output": " SELECT ?definition WHERE { :nPOD_Quantified_Feature rdfs:comment ?definition . }"
+  },
+  {
+    "instruction": " What are some examples of quantified features in the nPOD knowledge graph?",
+    "input": "",
+    "output": " SELECT ?feature WHERE { ?feature a :nPOD_Quantified_Feature . } LIMIT 5"
+  },
+  {
+    "instruction": " What are the different types of annotations in the graph?",
+    "input": "",
+    "output": " SELECT ?annotation WHERE { ?annotation rdfs:subClassOf :Annotation . }"
+  },
+  {
+    "instruction": " What is the definition of the \"hasAuthor\" property?",
+    "input": "",
+    "output": " SELECT ?definition WHERE { :hasAuthor rdfs:comment ?definition . }"
+  },
+  {
+    "instruction": " What is the definition of the \"regulates\" property?",
+    "input": "",
+    "output": " SELECT ?definition WHERE { :regulates rdfs:comment ?definition . }"
+  },
+  {
+    "instruction": " What is the definition of the \"Data_With_CI\" class?",
+    "input": "",
+    "output": " SELECT ?definition WHERE { :Data_With_CI rdfs:comment ?definition . }"
+  },
+  {
+    "instruction": " What datasets are available in nPOD dataset? ",
+    "input": "",
+    "output": "      SELECT ?dataset     WHERE {        ?dataset a :nPOD_Dataset .    } "
+  },
+  {
+    "instruction": " Which datasets are related to nPOD data?",
+    "input": "",
+    "output": "    SELECT ?dataset    WHERE {       ?dataset rdfs:subClassOf :nPOD_Data .   }"
+  },
+  {
+    "instruction": " List the individual level datasets.",
+    "input": "",
+    "output": "    SELECT ?dataset    WHERE {       ?dataset a :Individual_Level_Dataset .   }"
+  },
+  {
+    "instruction": " Which nPOD features are quantified?",
+    "input": "",
+    "output": "    SELECT ?feature    WHERE {       ?feature a :nPOD_Quantified_Feature .   }"
+  },
+  {
+    "instruction": " List datasets that are annotated at the dataset level.",
+    "input": "",
+    "output": "     SELECT ?dataset    WHERE {        ?dataset a :Dataset_Level_Annotation .    } "
+  },
+  {
+    "instruction": " Which datasets have a theme related to Viral studies?",
+    "input": "",
+    "output": "    SELECT ?dataset   WHERE {       ?dataset :hasTheme :Viral .   }"
+  },
+  {
+    "instruction": " Which nPOD donors are of the T1D type?",
+    "input": "",
+    "output": "    SELECT ?donor   WHERE {       ?donor a :T1D_Donor .   }"
+  },
+  {
+    "instruction": " Get the age of a specific donor.",
+    "input": "",
+    "output": "    SELECT ?donorAge    WHERE {       :specificDonor :donorAge ?donorAge .   }"
+  },
+  {
+    "instruction": " List biological processes related to a dataset.",
+    "input": "",
+    "output": "    SELECT ?process   WHERE {       :specificDataset :bioProcess ?process .   }"
+  },
+  {
+    "instruction": " What cell or tissue samples are there in a particular dataset?",
+    "input": "",
+    "output": "      SELECT ?cellTissueSample     WHERE {        :specificDataset :cellTissue ?cellTissueSample .    } "
+  },
+  {
+    "instruction": "What are the datasets available?: ",
+    "input": "",
+    "output": " SELECT ?dataset WHERE { ?dataset a :Dataset}"
+  },
+  {
+    "instruction": "Which datasets are using a specific assay type?",
+    "input": "<assay-uri>",
+    "output": " SELECT ?dataset WHERE { ?dataset :assayType \"<assay-uri>\"^^xsd:uri }"
+  },
+  {
+    "instruction": "Who is the author of a specified dataset?",
+    "input": "<dataset-uri>",
+    "output": " SELECT ?author WHERE { \"<dataset-uri>\"^^xsd:uri :hasAuthor ?author }"
+  },
+  {
+    "instruction": "What type of method is used in a specified dataset?",
+    "input": "<dataset-uri>",
+    "output": " SELECT ?method WHERE { \"<dataset-uri>\"^^xsd:uri :usedMethod ?method }"
+  },
+  {
+    "instruction": "Are there any datasets that are published?",
+    "input": "",
+    "output": " SELECT ?dataset WHERE { ?dataset :dataGrade :published }"
+  },
+  {
+    "instruction": " Which datasets are validated?",
+    "input": "",
+    "output": " SELECT ?dataset WHERE { ?dataset :dataGrade :validated }"
+  },
+  {
+    "instruction": " Which datasets are preliminary?",
+    "input": "",
+    "output": " SELECT ?dataset WHERE { ?dataset :dataGrade :preliminary }"
+  },
+  {
+    "instruction": "Are there any exploratory datasets available?",
+    "input": "",
+    "output": " SELECT ?dataset WHERE { ?dataset :dataGrade :exploratory }"
+  },
+  {
+    "instruction": " Which datasets are accessible?",
+    "input": "<dataset-uri>",
+    "output": " SELECT ?dataPoints WHERE { \"<dataset-uri>\"^^xsd:uri :dataPoints ?dataPoints }"
+  },
+  {
+    "instruction": " How many data points does a specified dataset have?",
+    "input": "<dataset-uri>",
+    "output": " SELECT ?numFeatures WHERE { \"<dataset-uri>\"^^xsd:uri :numFeatures ?numFeatures }"
+  },
+  {
+    "instruction": " How many measurement features are present in a specified dataset?",
+    "input": "<dataset-uri>",
+    "output": " SELECT ?unitLabel WHERE { \"<dataset-uri>\"^^xsd:uri :unitLabel ?unitLabel }"
+  },
+  {
+    "instruction": " What unit label is attached to a specified dataset?",
+    "input": "<dataset-uri>",
+    "output": " SELECT ?featureID WHERE { \"<dataset-uri>\"^^xsd:uri :featureID ?featureID }"
+  },
+  {
+    "instruction": "What datasets contain author John Doe? ",
+    "input": "John Doe",
+    "output": " SELECT ?dataset WHERE { ?dataset :hasAuthor ?author . ?author rdfs:label \"John Doe\" }"
+  },
+  {
+    "instruction": " Which datasets were published in Diabetologia? ",
+    "input": "Diabetologia",
+    "output": " SELECT ?dataset WHERE { ?dataset :refSource \"Diabetologia\" }"
+  },
+  {
+    "instruction": " What are the datasets contributed to by the first author \"Jane Doe\"?",
+    "input": "Jane Doe",
+    "output": " SELECT ?dataset WHERE { ?dataset :hasFirstAuthor ?author . ?author rdfs:label \"Jane Doe\" }"
+  },
+  {
+    "instruction": " What are the datasets contributed by the last author with the name \"Smith\"?",
+    "input": "",
+    "output": " SELECT ?dataset WHERE { ?dataset :hasLastAuthor ?author . ?author rdfs:label \"Smith\" }"
+  },
+  {
+    "instruction": " What datasets are derived from dataset X?",
+    "input": "",
+    "output": " SELECT ?dataset WHERE { ?dataset :derivedFrom :X }"
+  },
+  {
+    "instruction": " Which datasets were derived using Method Y?",
+    "input": "",
+    "output": " SELECT ?dataset WHERE { ?dataset :usedMethod :MethodY }"
+  },
+  {
+    "instruction": " What is the publication date of dataset Z in PubMed?",
+    "input": "",
+    "output": " SELECT ?date WHERE { :Z :pubmedDate ?date }"
+  },
+  {
+    "instruction": " Who are the authors of dataset X?",
+    "input": "",
+    "output": " SELECT ?author WHERE { :DatasetX :hasAuthor ?author }"
+  },
+  {
+    "instruction": " What method was used to create dataset X?",
+    "input": "",
+    "output": " SELECT ?method WHERE { :DatasetX :usedMethod ?method }"
+  },
+  {
+    "instruction": " What are the comparators for ordinal datum type in dataset X?",
+    "input": "",
+    "output": " SELECT ?comparator WHERE { :DatasetX :contains ?datum . ?datum a :ordinal_datum . ?datum :hasComparator ?comparator }"
+  },
+  {
+    "instruction": " What features are common in both datasets X and Y?",
+    "input": "",
+    "output": " SELECT ?feature WHERE { :DatasetX :contains ?feature . :DatasetY :contains ?feature }"
+  },
+  {
+    "instruction": "List all the nPOD Quantified Features in the system.",
+    "input": "",
+    "output": " SELECT ?npodQuantifiedFeature WHERE {  ?npodQuantifiedFeature rdf:type :nPOD_Quantified_Feature .}"
+  },
+  {
+    "instruction": " What are the items in the nPOD Dataset?",
+    "input": "",
+    "output": " SELECT ?item WHERE {  ?item dct:isPartOf :nPOD_Dataset .}"
+  },
+  {
+    "instruction": " Provide all the items derived from a specific data item.",
+    "input": "",
+    "output": " SELECT ?derivedItem WHERE {  ?derivedItem :derivedFrom :specificDataItem .}"
+  },
+  {
+    "instruction": " List all data that have SD (Standard Deviation) provided.",
+    "input": "",
+    "output": "SELECT ?data WHERE {  ?data rdf:type :Data_With_SD .}"
+  },
+  {
+    "instruction": " Provide all datasets created using a specific data derivation method.",
+    "input": "",
+    "output": " SELECT ?dataset WHERE {  ?dataset :usedMethod :specificDataDerivationMethod .}"
+  },
+  {
+    "instruction": " Which data items were created using a specific method?",
+    "input": "",
+    "output": " SELECT ?dataItem WHERE {  ?dataItem :usedMethod :specificMethod .}"
+  },
+  {
+    "instruction": " What are the complete case datasets in the system?",
+    "input": "",
+    "output": " SELECT ?dataset WHERE {  ?dataset rdf:type :complete_cases .}"
+  },
+  {
+    "instruction": " What are the publications linked with a specific dataset?",
+    "input": "",
+    "output": "SELECT ?publication WHERE {  :specificDataset :pubSource ?publication .}"
+  },
+  {
+    "instruction": " Who is the author of a specific dataset?",
+    "input": "",
+    "output": "SELECT ?author WHERE {  :specificDataset :hasAuthor ?author .}"
+  },
+  {
+    "instruction": " What datasets are labeled as 'accessible'?",
+    "input": "",
+    "output": " SELECT ?dataset WHERE {  ?dataset rdf:type :accessible .}"
+  },
+  {
+    "instruction": " What data items are part of incomplete cases?",
+    "input": "",
+    "output": " SELECT ?dataItem WHERE {  ?dataItem rdf:type :incomplete_cases .}"
+  },
+  {
+    "instruction": " What is the provenance annotation for a specific dataset?",
+    "input": "",
+    "output": " SELECT ?provenanceAnnotation WHERE {  :specificDataset rdf:type ?provenanceAnnotation .  ?provenanceAnnotation rdfs:subClassOf :Proven"
+  },
+  {
+    "instruction": "What is the production output of the method 'method1'?",
+    "input": "<http://purl.org/net/#method1>",
+    "output": " SELECT ?output WHERE {<http://purl.org/net/#method1> <http://purl.org/net/#methodOutput> ?output.}"
+  },
+  {
+    "instruction": " Which assay type is associated with the dataset 'dataset1'?",
+    "input": "",
+    "output": " SELECT ?assay WHERE {<http://purl.org/net/#dataset1> <http://purl.org/net/#assayType> ?assay.}"
+  },
+  {
+    "instruction": " Which resources were derived from the resource 'resource1'?",
+    "input": "",
+    "output": " SELECT ?derivedResource WHERE {?derivedResource <http://purl.org/net/#derivedFrom> <http://purl.org/net/#resource1>.}"
+  },
+  {
+    "instruction": " Who is the author of the data 'data1'?",
+    "input": "",
+    "output": " SELECT ?author WHERE {<http://purl.org/net/#data1> <http://purl.org/net/#hasAuthor> ?author.}"
+  },
+  {
+    "instruction": " Which method was used to generate the data 'data1'?",
+    "input": "",
+    "output": " SELECT ?method WHERE {<http://purl.org/net/#data1> <http://purl.org/net/#usedMethod> ?method.}"
+  },
+  {
+    "instruction": " What are the components of the integrated data 'data1'?",
+    "input": "",
+    "output": " SELECT ?component WHERE {<http://purl.org/net/#data1> <http://purl.org/net/#integratedPart> ?component.}"
+  },
+  {
+    "instruction": " From which assay type was the dataset 'dataset1' derived?",
+    "input": "",
+    "output": " SELECT ?assay WHERE {<http://purl.org/net/#dataset1> <http://purl.org/net/#assayType> ?assay.}"
+  },
+  {
+    "instruction": "What is the class hierarchy for datasets in the ontology? ",
+    "input": "",
+    "output": " SELECT ?class WHERE { ?class rdfs:subClassOf* :Dataset }"
+  },
+  {
+    "instruction": " What are the subclasses of :Data_QC_Annotation?",
+    "input": "",
+    "output": " SELECT ?subclass WHERE { ?subclass rdfs:subClassOf :Data_QC_Annotation }"
+  },
+  {
+    "instruction": " Which methods are subclasses of :Method_Annotation?",
+    "input": "",
+    "output": " SELECT ?subclass WHERE { ?subclass rdfs:subClassOf :Method_Annotation }"
+  },
+  {
+    "instruction": " What are the different measurement scales in the ontology?",
+    "input": "",
+    "output": " SELECT ?scale WHERE { ?scale rdfs:subClassOf :measurement_scale }"
+  },
+  {
+    "instruction": " Which features are subclasses of :nPOD_Feature?",
+    "input": "",
+    "output": " SELECT ?subclass WHERE { ?subclass rdfs:subClassOf :nPOD_Feature }"
+  },
+  {
+    "instruction": " What are the different types of annotations in the ontology?",
+    "input": "",
+    "output": " SELECT ?annotation WHERE { ?annotation rdfs:subClassOf :Annotation }"
+  },
+  {
+    "instruction": " What are the subclasses of :Group_Level_Dataset?",
+    "input": "",
+    "output": " SELECT ?subclass WHERE { ?subclass rdfs:subClassOf :Group_Level_Dataset }"
+  },
+  {
+    "instruction": " What are the subclasses of :Theme?",
+    "input": "",
+    "output": " SELECT ?subclass WHERE { ?subclass rdfs:subClassOf :Theme }"
+  },
+  {
+    "instruction": " Which methods are subclasses of :Data_Derivation_Method?",
+    "input": "",
+    "output": " SELECT ?subclass WHERE { ?subclass rdfs:subClassOf :Data_Derivation_Method }"
+  },
+  {
+    "instruction": " What is the hierarchy of measurement scales in the ontology?",
+    "input": "",
+    "output": " SELECT ?subclass WHERE { ?subclass rdfs:subClassOf :measurement_scale }"
+  },
+  {
+    "instruction": " Which methods have a withCI property?",
+    "input": "",
+    "output": " SELECT ?method WHERE { ?method :withCI [] }"
+  },
+  {
+    "instruction": " Which features have a withSEM property?",
+    "input": "",
+    "output": " SELECT ?feature WHERE { ?feature :withSEM [] }"
+  },
+  {
+    "instruction": " List all the datasets in the knowledge graph.",
+    "input": "",
+    "output": " SELECT ?dataset WHERE {?dataset a :Dataset .}"
+  },
+  {
+    "instruction": " List all the group-level datasets.",
+    "input": "",
+    "output": " SELECT ?dataset WHERE {?dataset a :Group_Level_Dataset .}"
+  },
+  {
+    "instruction": " List all the individual-level datasets.",
+    "input": "",
+    "output": " SELECT ?dataset WHERE {?dataset a :Individual_Level_Dataset .}"
+  },
+  {
+    "instruction": " What are the nPOD-related data present?",
+    "input": "",
+    "output": " SELECT ?data WHERE {?data a :nPOD_Data .}"
+  },
+  {
+    "instruction": " List all nPOD dataset items.",
+    "input": "",
+    "output": " SELECT ?item WHERE {?item a :nPOD_Dataset_Item .}"
+  },
+  {
+    "instruction": " List all the nPOD features.",
+    "input": "",
+    "output": " SELECT ?feature WHERE {?feature a :nPOD_Feature .}"
+  },
+  {
+    "instruction": " List all nPOD quantified features.",
+    "input": "",
+    "output": " SELECT ?feature WHERE {?feature a :nPOD_Quantified_Feature .}"
+  },
+  {
+    "instruction": " List all non-quantified measurement data.",
+    "input": "",
+    "output": " SELECT ?datum WHERE {?datum a :Nonquantified_Measurenent_Datum .}"
+  },
+  {
+    "instruction": " List all quantified measurement data.",
+    "input": "",
+    "output": " SELECT ?datum WHERE {?datum a :Quantified_Measurement_Datum .}"
+  },
+  {
+    "instruction": " List all annotations.",
+    "input": "",
+    "output": " SELECT ?annotation WHERE {?annotation a :Annotation .}"
+  },
+  {
+    "instruction": " List all dataset-level annotations.",
+    "input": "",
+    "output": " SELECT ?annotation WHERE {?annotation a :Dataset_Level_Annotation .}"
+  },
+  {
+    "instruction": " List all biological annotations.",
+    "input": "",
+    "output": " SELECT ?annotation WHERE {?annotation a :Biological_Annotation .}"
+  },
+  {
+    "instruction": " What are the available donor annotations?",
+    "input": "",
+    "output": " SELECT ?annotation WHERE {?annotation a :Donor_Annotation .}"
+  },
+  {
+    "instruction": " What are the cell or tissue annotations?",
+    "input": "",
+    "output": " SELECT ?annotation WHERE {?annotation a :Cell_Tissue_Annotation .}"
+  },
+  {
+    "instruction": " What are the gene annotations?",
+    "input": "",
+    "output": " SELECT ?annotation WHERE {?annotation a :Gene_Annotation .}"
+  },
+  {
+    "instruction": " List all NCBI gene annotations.",
+    "input": "",
+    "output": " SELECT ?annotation WHERE {?annotation a :NCBI_Gene .}"
+  },
+  {
+    "instruction": " What are the protein annotations?",
+    "input": "",
+    "output": " SELECT ?annotation WHERE {?annotation a :Protein_Annotation .}"
+  },
+  {
+    "instruction": " List all UniProt protein annotations.",
+    "input": "",
+    "output": " SELECT ?annotation WHERE {?annotation a :UniProt_Protein .}"
+  },
+  {
+    "instruction": " List all GO annotations.",
+    "input": "",
+    "output": " SELECT ?annotation WHERE {?annotation a :GO_Annotation .}"
+  },
+  {
+    "instruction": " List all cellular component annotations.",
+    "input": "",
+    "output": " SELECT ?annotation WHERE {?annotation a :Cellular_Component_Annotation .}"
+  },
+  {
+    "instruction": " List all molecular function annotations.",
+    "input": "",
+    "output": " SELECT ?annotation WHERE {?annotation a :Molecular_Function_Annotation .}"
+  },
+  {
+    "instruction": " What are the themes related to virus study?",
+    "input": "",
+    "output": " SELECT ?theme WHERE {?theme a :Viral .}"
+  },
+  {
+    "instruction": " What are the themes related to autoimmunity study?",
+    "input": "",
+    "output": " SELECT ?theme WHERE {?theme a :Autoimmunity .}"
+  },
+  {
+    "instruction": " List all transplant themes.",
+    "input": "",
+    "output": " SELECT ?theme WHERE {?theme a :Transplant .}"
+  },
+  {
+    "instruction": " What are the omics themes?",
+    "input": "",
+    "output": " SELECT ?theme WHERE {?theme a :Omics .}"
+  },
+  {
+    "instruction": " List all nPOD donors.",
+    "input": "",
+    "output": " SELECT ?donor WHERE {?donor a :nPOD_Donor .}"
+  },
+  {
+    "instruction": " List all T1D donors.",
+    "input": "",
+    "output": " SELECT ?donor WHERE {?donor a :T1D_Donor .}"
+  },
+  {
+    "instruction": " Who are the T2D donors?",
+    "input": "",
+    "output": " SELECT ?donor WHERE {?donor a :T2D_Donor .}"
+  },
+  {
+    "instruction": " List all donors with pending classification.",
+    "input": "",
+    "output": " SELECT ?donor WHERE {?donor a :Pending .}"
+  },
+  {
+    "instruction": " Who are the fulminant donors?",
+    "input": "",
+    "output": " SELECT ?donor WHERE {?donor a :Fulminant_Donor .}"
+  },
+  {
+    "instruction": " What are all of the nPOD Dataset items?",
+    "input": "",
+    "output": "      SELECT ?item WHERE {      ?item a :nPOD_Dataset_Item.    } "
+  },
+  {
+    "instruction": " What is the method used to derive specific data?",
+    "input": "",
+    "output": "     SELECT ?method WHERE {      :specific_data :usedMethod ?method.    } "
+  },
+  {
+    "instruction": " Who is the author of a specific dataset?",
+    "input": "",
+    "output": "     SELECT ?author WHERE {      :specific_dataset :hasAuthor ?author.    }    "
+  },
+  {
+    "instruction": " What is the assay type of a certain dataset?",
+    "input": "",
+    "output": "     SELECT ?assay WHERE {      :specific_dataset :assayType ?assay.    } "
+  },
+  {
+    "instruction": " What are all of the nPOD Features?",
+    "input": "",
+    "output": "     SELECT ?feature WHERE {      ?feature a :nPOD_Feature.    } "
+  },
+  {
+    "instruction": " What datasets are combined using a data integration method?",
+    "input": "",
+    "output": "     SELECT ?dataset WHERE {      ?dataset :usedMethod :Data_Integration_Method.    } "
+  },
+  {
+    "instruction": " Which datasets are annotated as accessible?",
+    "input": "",
+    "output": "     SELECT ?dataset WHERE {      ?dataset :FAIR_Annotation :accessible.    } "
+  },
+  {
+    "instruction": "How many datasets are currently available?",
+    "input": "",
+    "output": " SELECT (count(distinct ?d) AS ?count) WHERE {?d a :Dataset}"
+  },
+  {
+    "instruction": " How many group-level datasets are currently available?",
+    "input": "",
+    "output": " SELECT (count(?d) AS ?count) WHERE {?d a :Group_Level_Dataset}"
+  },
+  {
+    "instruction": " How many individual-level datasets are currently available?",
+    "input": "",
+    "output": " SELECT (count(?d) AS ?count) WHERE {?d a :Individual_Level_Dataset}"
+  },
+  {
+    "instruction": " List all nPOD datasets.",
+    "input": "",
+    "output": " SELECT DISTINCT ?d WHERE {?d a :nPOD_Dataset}"
+  },
+  {
+    "instruction": " List all nPOD dataset items.",
+    "input": "",
+    "output": " SELECT DISTINCT ?d WHERE {?d a :nPOD_Dataset_Item}"
+  },
+  {
+    "instruction": " How many nPOD features are currently available?",
+    "input": "",
+    "output": " SELECT (count(?f) AS ?count) WHERE {?f a :nPOD_Feature}"
+  },
+  {
+    "instruction": " How many nPOD quantified features are currently available?",
+    "input": "",
+    "output": " SELECT (count(?f) AS ?count) WHERE {?f a :nPOD_Quantified_Feature}"
+  },
+  {
+    "instruction": " What datasets have complete cases?",
+    "input": "",
+    "output": " SELECT DISTINCT ?d WHERE {?d a :Dataset; :caseLinkage :complete_cases}"
+  },
+  {
+    "instruction": " What datasets have incomplete cases?",
+    "input": "",
+    "output": " SELECT DISTINCT ?d WHERE {?d a :Dataset; :caseLinkage :incomplete_cases}"
+  },
+  {
+    "instruction": " What is the publication source of a given dataset?",
+    "input": "",
+    "output": " SELECT ?s WHERE {?dataset :pubSource ?s}"
+  },
+  {
+    "instruction": " Who is the author of a given dataset?",
+    "input": "",
+    "output": " SELECT ?a WHERE {?dataset :hasAuthor ?a}"
+  },
+  {
+    "instruction": " What is the data derivation method used in a particular dataset?",
+    "input": "",
+    "output": " SELECT ?m WHERE {?dataset :usedMethod ?m}"
+  },
+  {
+    "instruction": " What datasets were derived using a particular data derivation method?",
+    "input": "",
+    "output": " SELECT ?d WHERE {?d :usedMethod ?method}"
+  },
+  {
+    "instruction": " What datasets use a particular assay type?",
+    "input": "",
+    "output": " SELECT"
+  },
+  {
+    "instruction": "What are the datasets available in nPOD data?",
+    "input": "",
+    "output": " SELECT DISTINCT ?dataset WHERE { ?dataset rdf:type :nPOD_Data . }"
+  },
+  {
+    "instruction": " What are the resources that are provenance annotations?",
+    "input": "",
+    "output": " SELECT DISTINCT ?resource WHERE { ?resource rdf:type :Provenance . }"
+  },
+  {
+    "instruction": " Which resources are derived datasets and from which resources were they derived?",
+    "input": "",
+    "output": " SELECT DISTINCT ?dataset ?source WHERE { ?dataset rdf:type :derived_datum . ?dataset :derivedFrom ?source . }"
+  },
+  {
+    "instruction": " What are the resources that are data resulting from a specific method?",
+    "input": "",
+    "output": " SELECT DISTINCT ?resource WHERE { ?resource :usedMethod :<MethodNameHere> . }"
+  },
+  {
+    "instruction": " What are the individual-level datasets in nPOD data?",
+    "input": "",
+    "output": " SELECT DISTINCT ?dataset WHERE { ?dataset rdf:type :Individual_Level_Dataset . }"
+  },
+  {
+    "instruction": " What are the group-level datasets in nPOD data?",
+    "input": "",
+    "output": " SELECT DISTINCT ?dataset WHERE { ?dataset rdf:type :Group_Level_Dataset . }"
+  },
+  {
+    "instruction": " What are the data features available in the nPOD datasets?",
+    "input": "",
+    "output": " SELECT DISTINCT ?feature WHERE { ?feature rdf:type :nPOD_Feature . }"
+  },
+  {
+    "instruction": " What are the datasets that are marked as accessible?",
+    "input": "",
+    "output": " SELECT DISTINCT ?dataset WHERE { ?dataset rdf:type [:Accessible . }"
+  },
+  {
+    "instruction": " What are the datasets that are marked as inaccessible?",
+    "input": "",
+    "output": " SELECT DISTINCT ?dataset WHERE { ?dataset rdf:type :Inaccessible . }"
+  },
+  {
+    "instruction": " What are the annotations available for a specified dataset?",
+    "input": "",
+    "output": " SELECT DISTINCT ?annotation WHERE { :<DatasetHere> :hasAnnotation ?annotation . }"
+  },
+  {
+    "instruction": " What is the provenance annotation of the given dataset?",
+    "input": "",
+    "output": " SELECT DISTINCT ?provenanceAnnotation WHERE { :<DatasetHere> rdf:type :Provenance . }"
+  },
+  {
+    "instruction": " Which datasets have a specific author?",
+    "input": "",
+    "output": " SELECT DISTINCT ?dataset WHERE { ?dataset :hasAuthor :<AuthorHere> . }"
+  },
+  {
+    "instruction": " Which datasets use a specific method?",
+    "input": "",
+    "output": " SELECT DISTINCT ?dataset WHERE { ?dataset :usedMethod :<MethodHere> . }"
+  },
+  {
+    "instruction": " Which datasets have a specific data grade?",
+    "input": "",
+    "output": " SELECT DISTINCT ?dataset WHERE { ?dataset :dataGrade :<DataGradeHere> . }"
+  },
+  {
+    "instruction": " What are the publications related to a specific dataset?",
+    "input": "",
+    "output": " SELECT DISTINCT ?"
+  },
+  {
+    "instruction": "How many datasets are there in the database?",
+    "input": "",
+    "output": " SELECT (COUNT(?dataset) as ?count) WHERE { ?dataset a :Dataset .}"
+  },
+  {
+    "instruction": " List all group-level datasets in the database.",
+    "input": "",
+    "output": " SELECT ?groupLevelDataset WHERE { ?groupLevelDataset a :Group_Level_Dataset .}"
+  },
+  {
+    "instruction": " Which are the individual-level datasets in the database?",
+    "input": "",
+    "output": " SELECT ?individualLevelDataset WHERE { ?individualLevelDataset a :Individual_Level_Dataset .}"
+  },
+  {
+    "instruction": " How many datasets are related to nPOD?",
+    "input": "",
+    "output": " SELECT (COUNT(?nPoddDataset) as ?count) WHERE { ?nPoddDataset a :nPOD_Dataset .}"
+  },
+  {
+    "instruction": " List all items in the nPOD dataset.",
+    "input": "",
+    "output": " SELECT ?nPoddDatasetItem WHERE { ?nPoddDatasetItem a :nPOD_Dataset_Item .}"
+  },
+  {
+    "instruction": " Fetch all instances of nPOD quantified feature in the database.",
+    "input": "",
+    "output": " SELECT ?nPoddQuantifiedFeature WHERE { ?nPoddQuantifiedFeature a :nPOD_Quantified_Feature .}"
+  },
+  {
+    "instruction": " What are the non-quantified measurement data items in the database?",
+    "input": "",
+    "output": " SELECT ?nonQuantifiedMeasurementDatum WHERE { ?nonQuantifiedMeasurementDatum a :Nonquantified_Measurenent_Datum .}"
+  },
+  {
+    "instruction": " Show all dataset-level annotations.",
+    "input": "",
+    "output": " SELECT ?datasetLevelAnnotation WHERE { ?datasetLevelAnnotation a :Dataset_Level_Annotation .}"
+  },
+  {
+    "instruction": " List all feature-level annotations in the database.",
+    "input": "",
+    "output": " SELECT ?featureLevelAnnotation WHERE { ?featureLevelAnnotation a :Feature_Level_Annotation .}"
+  },
+  {
+    "instruction": " Retrieve all method annotations in the database.",
+    "input": "",
+    "output": " SELECT ?methodAnnotation WHERE { ?methodAnnotation a :Method_Annotation .}"
+  },
+  {
+    "instruction": " Fetch all assays from the database.",
+    "input": "",
+    "output": " SELECT ?assay WHERE { ?assay a :Assay .}"
+  },
+  {
+    "instruction": " List all methods in the database.",
+    "input": "",
+    "output": " SELECT ?method WHERE { ?method a :Method .}"
+  },
+  {
+    "instruction": " List all data derivation methods.",
+    "input": "",
+    "output": " SELECT ?dataDerivationMethod WHERE { ?dataDerivationMethod a :Data_Derivation_Method .}"
+  },
+  {
+    "instruction": " Show data with statistics.",
+    "input": "",
+    "output": " SELECT ?dataWithStatistics WHERE { ?dataWithStatistics a :Data_With_Statistics .}"
+  },
+  {
+    "instruction": "What are the datasets available in the nPOD database?",
+    "input": "",
+    "output": " SELECT ?dataset WHERE { ?dataset a :Dataset . }"
+  },
+  {
+    "instruction": " How many datasets are present at the individual level?",
+    "input": "",
+    "output": " SELECT (COUNT(?dataset) as ?count) WHERE { ?dataset a :Individual_Level_Dataset . }"
+  },
+  {
+    "instruction": " Are there any nPOD datasets associated with nPOD data?",
+    "input": "",
+    "output": " ASK WHERE { ?dataset a :nPOD_Dataset . }"
+  },
+  {
+    "instruction": " Show me all nPOD Dataset items.",
+    "input": "",
+    "output": " SELECT ?item WHERE { ?item a :nPOD_Dataset_Item . }"
+  },
+  {
+    "instruction": " How many nPOD features exist in the database?",
+    "input": "",
+    "output": " SELECT (COUNT(?feature) as ?count) WHERE { ?feature a :nPOD_Feature . }"
+  },
+  {
+    "instruction": " Show me some examples of the nPOD Quantified features.",
+    "input": "",
+    "output": " SELECT ?feature WHERE { ?feature a :nPOD_Quantified_Feature . } LIMIT 5"
+  },
+  {
+    "instruction": " How many non-quantified measurement data entries are there in the system?",
+    "input": "",
+    "output": " SELECT (COUNT(?datum) as ?count) WHERE { ?datum a :Nonquantified_Measurenent_Datum . }"
+  },
+  {
+    "instruction": " What is the total count of measured expression levels in the system?",
+    "input": "",
+    "output": " SELECT (COUNT(?datum) as ?count) WHERE { ?datum obo:OBI_0000101 . }"
+  },
+  {
+    "instruction": " What are the different dataset annotation types available?",
+    "input": "",
+    "output": " SELECT ?annotation WHERE { ?annotation rdfs:subClassOf :Dataset_Level_Annotation . }"
+  },
+  {
+    "instruction": " Can you list all biological annotations related to the donors?",
+    "input": "",
+    "output": " SELECT ?annotation WHERE { ?annotation a :Donor_Annotation . }"
+  },
+  {
+    "instruction": " What are the individual level datasets with a viral theme?",
+    "input": "",
+    "output": " SELECT ?dataset WHERE { ?dataset a :Individual_Level_Dataset . ?dataset :Theme :Viral . }"
+  },
+  {
+    "instruction": " Can you fetch the data linked to the Autoimmunity theme?",
+    "input": "",
+    "output": " SELECT ?data WHERE { ?data :Theme :Autoimmunity . }"
+  },
+  {
+    "instruction": " Show me the T1D donors available in the database.",
+    "input": "",
+    "output": " SELECT ?donor WHERE { ?donor a :T1D_Donor . }"
+  },
+  {
+    "instruction": " I want to find out about the donors with type 2 diabetes.",
+    "input": "",
+    "output": " SELECT ?donor WHERE { ?donor a :T2D_Donor . }"
+  },
+  {
+    "instruction": " How many donors are currently classified as \"pending\"?",
+    "input": "",
+    "output": " SELECT (COUNT(?donor) as ?count) WHERE { ?donor a :Pending . }"
+  },
+  {
+    "instruction": " Are there any gestational diabetes donors in the system?",
+    "input": "",
+    "output": " ASK WHERE { ?donor a :Gestational_Diabetes_Donor . }"
+  },
+  {
+    "instruction": " Show me the donors who do not have diabetes.",
+    "input": "",
+    "output": " SELECT ?donor WHERE { ?donor a :No_Diabetes_Donor . }"
+  },
+  {
+    "instruction": " I want to see the proteins annotated in UniProt.",
+    "input": "",
+    "output": " SELECT ?protein WHERE { ?protein a :UniProt_Protein . }"
+  },
+  {
+    "instruction": " Are there any genes annotated from the NCBI Gene database?",
+    "input": "",
+    "output": " ASK WHERE { ?gene a :NCBI_Gene . }"
+  },
+  {
+    "instruction": " What are the different theme annotations associated with nPOD data?",
+    "input": "",
+    "output": " SELECT DISTINCT ?theme WHERE { ?data a :nPOD_Data . ?data :Theme ?theme . }"
+  },
+  {
+    "instruction": " Which proteins are associated with a Male donor?",
+    "input": "",
+    "output": " SELECT ?protein WHERE { ?donor a :Male . ?protein :UP ?donor . }"
+  },
+  {
+    "instruction": " Can we fetch data based on Gene annotations?",
+    "input": "",
+    "output": " SELECT ?data WHERE { ?data :GeneID ?gene . } LIMIT 10"
+  },
+  {
+    "instruction": " Who are the multiracial donors in the database?",
+    "input": "",
+    "output": " SELECT ?donor WHERE { ?donor a :Multiracial . }"
+  },
+  {
+    "instruction": " Are there donors associated with the extracellular matrix theme?",
+    "input": "",
+    "output": " ASK WHERE { ?donor a :nPOD_Donor . ?donor :Theme :Extracellular_Matrix . }"
+  },
+  {
+    "instruction": " What type of donors are pending classification?",
+    "input": "",
+    "output": " SELECT ?donor WHERE { ?donor a :Pending . }"
+  },
+  {
+    "instruction": " How many cell or tissue annotations are present in the database?",
+    "input": "",
+    "output": " SELECT (COUNT(?annotation) as ?count) WHERE { ?annotation a :Cell_Tissue_Annotation . }"
+  },
+  {
+    "instruction": " Can we get the proteins related to the Omics theme?",
+    "input": "",
+    "output": " SELECT ?protein WHERE { ?protein :Theme :Omics . }"
+  },
+  {
+    "instruction": " Are there annotations related to a relevant biological process?",
+    "input": "",
+    "output": " ASK WHERE { ?annotation a :Biological_Process_Annotation . }"
+  },
+  {
+    "instruction": " What are the annotations relating to data at the dataset level?",
+    "input": "",
+    "output": " SELECT ?annotation WHERE { ?annotation a :Dataset_Level_Annotation . }"
+  },
+  {
+    "instruction": " Can you list the cells or tissues related to a given dataset?",
+    "input": "",
+    "output": " SELECT ?cellTissue WHERE { ?dataset :cellTissue ?cellTissue . }"
+  },
+  {
+    "instruction": " Are there any cases associated with the given dataset?",
+    "input": "",
+    "output": " ASK WHERE { ?dataset :hasCase ?case . }"
+  },
+  {
+    "instruction": " List out UniProt proteins related to the given dataset.",
+    "input": "",
+    "output": " SELECT ?protein WHERE { ?dataset :UP ?protein . }"
+  },
+  {
+    "instruction": " Show me NCBI Genes linked with the nPOD dataset.",
+    "input": "",
+    "output": " SELECT ?gene WHERE { ?dataset :GeneID ?gene . }"
+  },
+  {
+    "instruction": " Which donors are associated with \"autoimmunity\"?",
+    "input": "",
+    "output": " SELECT ?donor WHERE { ?donor :Theme :Autoimmunity . }"
+  },
+  {
+    "instruction": " What are the monogenic diabetes donors in the database?",
+    "input": "",
+    "output": " SELECT ?donor WHERE { ?donor a :Monogenic_Diabetes"
+  },
+  {
+    "instruction": "What are the nPOD datasets available?",
+    "input": "",
+    "output": " SELECT DISTINCT ?dataset WHERE { ?dataset rdf:type :nPOD_Dataset }"
+  },
+  {
+    "instruction": " Is there any dataset with the first author named 'Doe'?",
+    "input": "Doe",
+    "output": " SELECT ?dataset WHERE { ?dataset :namedFirstAuthor \"Doe\" }"
+  },
+  {
+    "instruction": " Is there any method described as 'Data Integration Method'?",
+    "input": "",
+    "output": " SELECT ?method WHERE { ?method rdf:type :Data_Integration_Method }"
+  },
+  {
+    "instruction": " What are the data resources accompanied by summarized inter quartile range (IQR)?",
+    "input": "",
+    "output": " SELECT DISTINCT ?datares WHERE { ?datares rdf:type :Data_With_IQR }"
+  },
+  {
+    "instruction": " What are the published datasets?",
+    "input": "",
+    "output": " SELECT ?dataset WHERE { ?dataset :dataGrade :published }"
+  },
+  {
+    "instruction": " What are the nominal data items in the knowledge graph?",
+    "input": "",
+    "output": " SELECT ?datum WHERE { ?datum rdf:type :nominal_datum }"
+  },
+  {
+    "instruction": " What are the non-quantified measurement data items?",
+    "input": "",
+    "output": " SELECT ?datum WHERE { ?datum rdf:type :Nonquantified_Measurenent_Datum }"
+  },
+  {
+    "instruction": " Which datasets have complete cases?",
+    "input": "",
+    "output": " SELECT ?dataset WHERE { ?dataset :caseLinkage :complete_cases }"
+  },
+  {
+    "instruction": " Which data items are part of a specific nPOD Dataset?",
+    "input": "",
+    "output": " SELECT ?dataItem WHERE { ?dataItem :inDataset <Dataset_URI> }"
+  },
+  {
+    "instruction": " What features were extracted from Image dataset?",
+    "input": "",
+    "output": " SELECT ?feature WHERE { ?feature rdf:type :nPOD_Feature }"
+  },
+  {
+    "instruction": " What is the author contribution date for a dataset?",
+    "input": "",
+    "output": " SELECT ?date WHERE { <Dataset_URI> :authorContributedOn ?date }"
+  },
+  {
+    "instruction": " What are the methods used for generating a dataset?",
+    "input": "",
+    "output": " SELECT ?method WHERE { <Dataset_URI> :usedMethod ?method }"
+  },
+  {
+    "instruction": " What is the data derivation method used for creating a derived data?",
+    "input": "",
+    "output": " SELECT ?method WHERE { ?derivedDatum :usedMethod ?method . ?derivedDatum rdf"
+  },
+  {
+    "instruction": " How many datasets are in the knowledge graph?",
+    "input": "",
+    "output": " SELECT count(DISTINCT ?ds) WHERE { ?ds rdf:type :Dataset .}"
+  },
+  {
+    "instruction": " Give me all group level datasets. ",
+    "input": "",
+    "output": " SELECT ?group_ds WHERE { ?group_ds rdf:type :Group_Level_Dataset. }"
+  },
+  {
+    "instruction": " What are all individual level datasets? ",
+    "input": "",
+    "output": " SELECT ?indv_ds WHERE { ?indv_ds rdf:type :Individual_Level_Dataset. }"
+  },
+  {
+    "instruction": " What are the nPOD-funded datasets? ",
+    "input": "",
+    "output": " SELECT ?npod_data WHERE { ?npod_data rdf:type :nPOD_Data. }"
+  },
+  {
+    "instruction": " Give me all the nPOD-related items in the \"sample\" dataset.",
+    "input": "",
+    "output": " SELECT ?item WHERE { ?item dct:isPartOf :sample. }"
+  },
+  {
+    "instruction": " How many nPOD quantified features do we have?",
+    "input": "",
+    "output": " SELECT count(DISTINCT ?feature) WHERE { ?feature rdf:type :nPOD_Quantified_Feature .}"
+  },
+  {
+    "instruction": " List all nonquantified measurement data items. ",
+    "input": "",
+    "output": " SELECT ?nonquant WHERE { ?nonquant rdf:type :Nonquantified_Measurenent_Datum. }"
+  },
+  {
+    "instruction": " Which quantified measurement data items can be used in statistical analysis?",
+    "input": "",
+    "output": " SELECT ?quant_item WHERE { ?quant_item rdf:type :Quantified_Measurement_Datum. }"
+  },
+  {
+    "instruction": " Are there any annotations related to the methods used in our dataset?",
+    "input": "",
+    "output": " SELECT ?ann WHERE { ?ann rdf:type :Method_Annotation. }"
+  },
+  {
+    "instruction": " What are the dataset-level annotations in our dataset?",
+    "input": "",
+    "output": " SELECT ?dl_ann WHERE { ?dl_ann rdf:type :Dataset_Level_Annotation. }"
+  },
+  {
+    "instruction": " List all feature-level annotations in our dataset. ",
+    "input": "",
+    "output": " SELECT ?fl_ann WHERE { ?fl_ann rdf:type :Feature_Level_Annotation. }"
+  },
+  {
+    "instruction": "List all datasets in the knowledge graph.",
+    "input": "",
+    "output": " SELECT ?dataset WHERE {  ?dataset a :Dataset . }"
+  },
+  {
+    "instruction": " What type of nPOD Data are available?",
+    "input": "",
+    "output": " SELECT DISTINCT ?type WHERE {  ?data a :nPOD_Data ;        rdfs:label ?type .}"
+  },
+  {
+    "instruction": " Which donors are associated with type 1 diabetes?",
+    "input": "",
+    "output": " SELECT ?donor WHERE {  ?donor a :T1D_Donor .}"
+  },
+  {
+    "instruction": " How many donors are females?",
+    "input": "",
+    "output": " SELECT (COUNT(?donor) as ?noOfFemales) WHERE {   ?donor :Sex :Female .}"
+  },
+  {
+    "instruction": "Which donors have an age greater than 60?",
+    "input": "",
+    "output": "SELECT ?donor WHERE{  ?donor :donorAge ?age .  FILTER(?age > 60)}"
+  },
+  {
+    "instruction": " What is the molecular function annotation associated with the dataset?",
+    "input": "",
+    "output": " SELECT ?molecularFn WHERE{  ?dataset :molecularFn ?molecularFn .}"
+  },
+  {
+    "instruction": " How many donors are related to the 'Autoimmunity' theme?",
+    "input": "",
+    "output": " SELECT (COUNT(distinct ?Donor) as ?no_of_donors) WHERE {  ?Donor a :nPOD_Donor ;         :Theme :Autoimmunity .}"
+  },
+  {
+    "instruction": " Which datasets are at an individual level?",
+    "input": "",
+    "output": " SELECT ?dataset WHERE {  ?dataset a :Individual_Level_Dataset .}"
+  },
+  {
+    "instruction": " What type of nPOD Features are in the dataset?",
+    "input": "",
+    "output": " SELECT DISTINCT ?feature WHERE {  ?feature a :nPOD_Feature .}"
+  },
+  {
+    "instruction": " Give me all males donors with associated protein annotations.",
+    "input": "",
+    "output": "SELECT ?donor ?proteinAnnotation WHERE { ?donor a :Male ;       :Protein_Annotation ?proteinAnnotation.}"
+  },
+  {
+    "instruction": " What is the donor annotation associated with the dataset?",
+    "input": "",
+    "output": " SELECT ?donorAnnotation WHERE {  ?dataset :Donor_Annotation ?donorAnnotation .}"
+  },
+  {
+    "instruction": " What age was 'DonorX' at the time of donation?",
+    "input": ":DonorX",
+    "output": "SELECT ?donorAge WHERE {  :DonorX :donorAge ?donorAge .}"
+  },
+  {
+    "instruction": " Which donors are associated with 'datasetY'?",
+    "input": ":datasetY",
+    "output": " SELECT ?donor WHERE {  ?dataset ?hasCase ?donor.  VALUES ?dataset {:datasetY}}"
+  },
+  {
+    "instruction": " What are the different datasets available related to the donor 'DonorZ'?",
+    "input": ":DonorZ",
+    "output": "SELECT ?dataset WHERE {  ?dataset :hasCase :DonorZ .}"
+  },
+  {
+    "instruction": " What sex is 'DonorA'?",
+    "input": ":DonorA",
+    "output": "SELECT ?sex WHERE {  :DonorA :Sex ?sex.}"
+  },
+  {
+    "instruction": " Which race does 'DonorB' belong to?",
+    "input": ":DonorB",
+    "output": "SELECT ?race WHERE {  :DonorB :Race ?race.}"
+  },
+  {
+    "instruction": " What is the uniqueness of 'dataset1'?",
+    "input": ":dataset1",
+    "output": "SELECT ?uniqueInfo WHERE {  :dataset1 rdfs:comment ?uniqueInfo.}"
+  },
+  {
+    "instruction": " Give me information about 'dataset2'.",
+    "input": ":dataset2",
+    "output": "SELECT ?infoWHERE {  :dataset2 rdfs:comment ?info.}"
+  },
+  {
+    "instruction": " How is 'dataset3' related to biological process?",
+    "input": ":dataset3",
+    "output": " SELECT ?bioProcessWHERE {  :dataset3 :bioProcess ?bioProcess.}"
+  },
+  {
+    "instruction": " How is 'dataset4' related to cellular component?",
+    "input": ":dataset4",
+    "output": " SELECT ?cellComponentWHERE {  :dataset4 :cellComponent ?cellComponent.}"
+  },
+  {
+    "instruction": " List the proteins annotated to 'dataset5'.",
+    "input": ":dataset5",
+    "output": " SELECT ?protein WHERE {  :dataset5 :UP ?protein.}"
+  },
+  {
+    "instruction": " List the genes annotated to 'dataset6'.",
+    "input": ":dataset6",
+    "output": " SELECT ?gene WHERE {  :dataset6 :GeneID ?gene.}"
+  },
+  {
+    "instruction": " What are the biological processes associated with 'dataset7'?",
+    "input": ":dataset7",
+    "output": " SELECT ?bioProcess WHERE {  :dataset7 :bioProcess ?bioProcess.}"
+  },
+  {
+    "instruction": " List the different races of donors present in 'dataset8'.",
+    "input": ":dataset8",
+    "output": " SELECT DISTINCT ?race WHERE {  ?donor a :nPOD_Donor ;         :Race ?race .  ?dataset1 :hasCase ?donor.  VALUES ?dataset1 {:dataset8}}"
+  },
+  {
+    "instruction": " List the different sexes of donors present in 'dataset9'.",
+    "input": ":dataset9",
+    "output": " SELECT DISTINCT ?sex WHERE {  ?donor a :nPOD_Donor ;         :Sex ?sex .  ?dataset1 :hasCase ?donor.  VALUES ?dataset1 {:dataset9}}"
+  },
+  {
+    "instruction": " Are there any gestational diabetes donors in the dataset?",
+    "input": "",
+    "output": " ASK {   ?gestationalDonor a :Gestational_Diabetes_Donor .   ?dataset :hasCase ?gestationalDonor .}"
+  },
+  {
+    "instruction": " Are there any monogenic donors in the dataset?",
+    "input": "",
+    "output": " ASK {   ?monogenicDonor a :Monogenic_Diabetes_Donor .   ?dataset :hasCase ?monogenicDonor .}"
+  },
+  {
+    "instruction": " Which dataset items are part of 'dataset10'?",
+    "input": ":dataset10",
+    "output": " SELECT ?item WHERE {  ?item a :nPOD_Dataset_Item ;        dct:isPartOf :dataset10 .}"
+  },
+  {
+    "instruction": "What is the superclass of class \":Dataset\"?",
+    "input": "",
+    "output": " SELECT ?superclass WHERE {:Dataset rdfs:subClassOf ?superclass}"
+  },
+  {
+    "instruction": " What is the subclass of class \":Biological_Process_Annotation\"?",
+    "input": "",
+    "output": " SELECT ?subclass WHERE {?subclass rdfs:subClassOf :Biological_Process_Annotation}"
+  },
+  {
+    "instruction": " Does class \":Individual_Level_Dataset\" have any subclasses?",
+    "input": "",
+    "output": " SELECT ?subclass WHERE {:Individual_Level_Dataset rdfs:subClassOf ?subclass}"
+  },
+  {
+    "instruction": " What are the subclasses of class \":Method_Annotation\"?",
+    "input": "",
+    "output": " SELECT ?subclass WHERE {?subclass rdfs:subClassOf :Method_Annotation}"
+  },
+  {
+    "instruction": " Which classes are equivalent to class \":nPOD_Data\"?",
+    "input": "",
+    "output": " SELECT ?equivalentClass WHERE {:nPOD_Data owl:equivalentClass ?equivalentClass}"
+  },
+  {
+    "instruction": " What is the range of property \":translated_relationship\"?",
+    "input": "",
+    "output": " SELECT ?range WHERE {:translated_relationship rdfs:range ?range}"
+  },
+  {
+    "instruction": "Which classes are sub-classes of the :Annotation class?",
+    "input": "",
+    "output": " SELECT ?subClass WHERE { ?subClass rdfs:subClassOf :Annotation }"
+  },
+  {
+    "instruction": " Which classes are sub-classes of the :Provenance class?",
+    "input": "",
+    "output": " SELECT ?subClass WHERE { ?subClass rdfs:subClassOf :Provenance }"
+  },
+  {
+    "instruction": " Which classes are sub-classes of the :Dataset class?",
+    "input": "",
+    "output": " SELECT ?subClass WHERE { ?subClass rdfs:subClassOf :Dataset }"
+  },
+  {
+    "instruction": " Which classes are sub-classes of the :Method class?",
+    "input": "",
+    "output": " SELECT ?subClass WHERE { ?subClass rdfs:subClassOf :Method }"
+  },
+  {
+    "instruction": " Which classes are sub-classes of the :Data_QC_Annotation class?",
+    "input": "",
+    "output": " SELECT ?subClass WHERE { ?subClass rdfs:subClassOf :Data_QC_Annotation }"
+  },
+  {
+    "instruction": " Which object properties are sub-properties of the :usedMethod property?",
+    "input": "",
+    "output": " SELECT ?subProperty WHERE { ?subProperty rdfs:subPropertyOf :usedMethod }"
+  },
+  {
+    "instruction": " Which object properties are sub-properties of the :withSD property?",
+    "input": "",
+    "output": " SELECT ?subProperty WHERE { ?subProperty rdfs:subPropertyOf :withSD }"
+  },
+  {
+    "instruction": " Which object properties are sub-properties of the :hasAuthor property?",
+    "input": "",
+    "output": " SELECT ?subProperty WHERE { ?subProperty rdfs:subPropertyOf :hasAuthor }"
+  },
+  {
+    "instruction": " Which data properties are sub-properties of the :unit property?",
+    "input": "",
+    "output": " SELECT ?subProperty WHERE { ?subProperty rdfs:subPropertyOf :unit }"
+  },
+  {
+    "instruction": " Which data properties are sub-properties of the :authorContributedOn property?",
+    "input": "",
+    "output": " SELECT ?subProperty WHERE { ?subProperty rdfs:subPropertyOf :authorContributedOn }"
+  },
+  {
+    "instruction": " Which data properties are sub-properties of the :hasPart property?",
+    "input": "",
+    "output": " SELECT ?subProperty WHERE { ?subProperty rdfs:subPropertyOf :hasPart }"
+  }
+]
