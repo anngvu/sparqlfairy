@@ -1,0 +1,52 @@
+[
+  {
+    "instruction": " List all group level dataset labels.",
+    "input": "",
+    "output": " \nSELECT ?label WHERE {\n  ?dataset rdf:type :Group_Level_Dataset ;\n           rdfs:label ?label .\n}"
+  },
+  {
+    "instruction": " What are the comments on individual level datasets?",
+    "input": "",
+    "output": " \nSELECT ?comment WHERE {\n  ?dataset rdf:type :Individual_Level_Dataset ;\n           rdfs:comment ?comment .\n}"
+  },
+  {
+    "instruction": " Give me the names of all nPOD dataset items.",
+    "input": "",
+    "output": " \nSELECT ?item WHERE {\n  ?item rdf:type :nPOD_Dataset_Item .\n}"
+  },
+  {
+    "instruction": " Which nPOD features exist in the graph?",
+    "input": "",
+    "output": " \nSELECT ?feature WHERE {\n  ?feature rdf:type :nPOD_Feature .\n}"
+  },
+  {
+    "instruction": " Which properties do nPOD quantified features have?",
+    "input": "",
+    "output": " \nDESCRIBE ?property WHERE {\n  :nPOD_Quantified_Feature ?property ?_ .\n}"
+  },
+  {
+    "instruction": " List the names of all non-quantified measurement data items.",
+    "input": "",
+    "output": " \nSELECT ?item WHERE {\n  ?item rdf:type :Nonquantified_Measurenent_Datum .\n}"
+  },
+  {
+    "instruction": " Do any Quantified measurement datum have a comment?",
+    "input": "",
+    "output": " \nASK WHERE {\n  ?item rdf:type :Quantified_Measurement_Datum ;\n        rdfs:comment ?comment.\n}"
+  },
+  {
+    "instruction": " Provide the comments for all Dataset-Level-Annotations.",
+    "input": "",
+    "output": " \nSELECT ?comment WHERE {\n  ?annotation rdf:type :Dataset_Level_Annotation ;\n              rdfs:comment ?comment .\n}"
+  },
+  {
+    "instruction": " Are there any Feature-Level-Annotations in the graph?",
+    "input": "",
+    "output": " \nASK WHERE {\n  ?annotation rdf:type :Feature_Level_Annotation.\n}"
+  },
+  {
+    "instruction": " Which Method Annotations exist in the graph?",
+    "input": "",
+    "output": " \nSELECT ?annotation WHERE {\n  ?annotation rdf:type :Method_Annotation.\n}"
+  }
+]
