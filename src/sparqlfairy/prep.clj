@@ -61,12 +61,16 @@
     (client/get (str endpoint (client/generate-query-string {"query" prefixed-query})) {:as :byte-array})))
 
 (defn row-map [chat]
-  (mapv (fn [quest query] {:question quest :query query}) (chat :question) (chat :query)))
+  (mapv (fn [quest query]
+          {:instruction quest
+           :input ""
+           :output query}) (chat :question) (chat :query)))
 
 ;(filter #(not= (% :nquery) (% :nquest)) dataset)
 
 (def all-rows (mapcat row-map dataset))
 
 
+(def filtered (filter #(not (nil? (:output %))) all-rows))
 
-(def filtered (filter #(not (nil? (:query %))) all-rows))
+(spit "data.json" (json/write-str filtered))
